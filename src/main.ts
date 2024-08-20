@@ -4,4 +4,13 @@ import './registerServiceWorker'
 import router from './router'
 import '@/assets/index.css'
 
-createApp(App).use(router).mount('#app')
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound  } from "oh-vue-icons/icons";
+
+addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound );
+
+
+const app = createApp(App)
+app.use(router)
+app.component("v-icon", OhVueIcon);
+app.mount('#app')
