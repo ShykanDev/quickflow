@@ -1,26 +1,107 @@
+import IItem from "@/interface/IItem";
+import { IoReturnUpBack } from "oh-vue-icons/icons";
 import { defineStore } from "pinia";
 
-export const UseUserStoreValues = defineStore('UseStoreValues',{
-    state() {
-        return {
-            grandTotal:0
-        }
-    },
-    getters:{
-        getGrandTotal():number{
-            return this.grandTotal;
-        }
-    },
-    actions: {
-        updateGrandTotal(newGrandTotal:number) {
-            this.grandTotal += newGrandTotal
+export const UseUserStoreValues = defineStore("UseStoreValues", {
+  state() {
+    return {
+      totalItems: [
+        {
+          itemName: "Tacos",
+          itemPrice: 30,
+          itemImage: require("../assets/img/items/taquito.png"),
         },
-        reduceGrandTotal(newGrandTotal:number) {
-            this.grandTotal - newGrandTotal
+        {
+          itemName: "Quesadillas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/quesadillaSimple.png"),
         },
-        resetGrandTotal() {
-            this.grandTotal = 0
-        }
+        {
+          itemName: "Quesadillas Carnitas",
+          itemPrice: 40,
+          itemImage: require("@/assets/img/items/quesadillaCarnitas.png"),
+        },
+        {
+          itemName: "Tortas",
+          itemPrice: 35,
+          itemImage: require("@/assets/img/items/tortasimple.png"),
+        },
+        {
+          itemName: "Tortas Carnitas",
+          itemPrice: 40,
+          itemImage: require("@/assets/img/items/torta.png"),
+        },
+        {
+          itemName: "Gorditas",
+          itemPrice: 35,
+          itemImage: require("@/assets/img/items/gorditas-min.png"),
+        },
+        {
+          itemName: "Gorditas Carnitas",
+          itemPrice: 40,
+          itemImage: require("@/assets/img/items/gorditaChicharron.png"),
+        },
+        {
+          itemName: "Refrescos Vidrio",
+          itemPrice: 25,
+          itemImage: require("@/assets/img/items/vidrio-min.png"),
+        },
+        {
+          itemName: "Refrescos Desechable",
+          itemPrice: 27,
+          itemImage: require("@/assets/img/items/desechables-min.png"),
+        },
+        {
+          itemName: "Queso Extra",
+          itemPrice: 10,
+          itemImage: require("@/assets/img/items/oaxaca.png"),
+        },
+        {
+          itemName: "Por Kilo",
+          itemPrice: 380,
+          itemImage: require("@/assets/img/items/peso.png"),
+        },
+      ] as Array<IItem>,
+      grandTotal: 0,
+      sells: [] as Array<object>,
+      summary: [] as Array<object>,
+    };
+  },
+  getters: {
+    getGrandTotal(): number {
+      return this.grandTotal;
     },
-    persist: true
-}) 
+    getSells(): Array<any> {
+      return this.sells;
+    },
+    getTotalItems(): Array<IItem> {
+      return this.totalItems;
+    },
+    getSummary(): Array<object> {
+      return this.summary;
+    },
+  },
+  actions: {
+    updateGrandTotal(newGrandTotal: number) {
+      this.grandTotal += newGrandTotal;
+    },
+    reduceGrandTotal(newGrandTotal: number) {
+      this.grandTotal - newGrandTotal;
+    },
+    resetGrandTotal() {
+      this.grandTotal = 0;
+    },
+    setNewSell(newSell: object): void {
+      this.sells.push(newSell);
+    },
+    resetSells(): void {
+      this.sells = [];
+    },
+    pushToSummary(valuesSummary: object): void {
+      this.summary.push(valuesSummary);
+    },
+    resetSummary(): void {
+      this.summary = [];
+    },
+  },
+}); 

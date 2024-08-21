@@ -10,9 +10,9 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound  } from "oh-vue-icons/icons";
+import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle   } from "oh-vue-icons/icons";
 
-addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound );
+addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle  );
 
 
 const app = createApp(App)
