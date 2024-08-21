@@ -1,4 +1,5 @@
 import IItem from "@/interface/IItem";
+import ISummary from "@/interface/ISummary";
 import { IoReturnUpBack } from "oh-vue-icons/icons";
 import { defineStore } from "pinia";
 
@@ -64,7 +65,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
       ] as Array<IItem>,
       grandTotal: 0,
       sells: [] as Array<object>,
-      summary: [] as Array<object>,
+      summary: [] as Array<ISummary>,
     };
   },
   getters: {
@@ -97,7 +98,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
     resetSells(): void {
       this.sells = [];
     },
-    pushToSummary(valuesSummary: object): void {
+    pushToSummary(valuesSummary: ISummary): void {
       this.summary.push(valuesSummary);
     },
     resetSummary(): void {
