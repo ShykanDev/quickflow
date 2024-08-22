@@ -4,7 +4,9 @@
             <template #main>
                 <div class="flex flex-col gap-4">
                     <h1 class="text-2xl font-medium font-poppins">Ventas</h1>
+                    <h2>Ingresos Totales ${{ totalEarned }} </h2>
                     <div v-for="(sale,index) in salesHistory" :key="index" class="text-white bg-black min-w-24 min-h-44">
+                        <p>Fecha: {{ sale[0].itemDate }}</p>
                         <div v-for="(item,index) in sale" :key="index">
                             <p v-if="item.itemName">{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p>
                             <!-- We gonna sum all the subtotals -->
@@ -20,10 +22,20 @@
 <script lang="ts" setup>
 import MainLayout from '@/layout/MainLayout.vue';
 import { UseSalesStore } from '@/store/UseSalesStore';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
-const salesHistory = computed(() => UseSalesStore().getSalesHistory);
+const salesHistory = computed(() => UseSalesStore().getSalesHistory.reverse());
+let totalEarned = ref(0);
 
+const totalEarnings = []
+onMounted(() => {
+    
+    salesHistory.value.forEach((sale) => {
+       totalEarnings.push(sale[0].grandTotal) 
+    })
+    totalEarned.value = totalEarnings.reduce((a, b) => a + b);
+    
+})
 </script>
 
 <style scoped>

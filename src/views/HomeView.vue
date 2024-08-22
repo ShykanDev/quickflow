@@ -76,6 +76,7 @@ import MainLayout from '@/layout/MainLayout.vue';
 import { UseSalesStore } from '@/store/UseSalesStore';
 import { UseUserStoreValues } from '@/store/UseStoreValues';
 import { onMounted, onUnmounted, ref, Ref } from 'vue';
+import moment from 'moment';
 
 let items = UseUserStoreValues().getTotalItems;
 const saveValues = ref(false);
@@ -92,11 +93,13 @@ const handleOpenSideBar = async (close?: boolean) => {
    if (close) isSideBarOpened.value = false;
     if (isSideBarOpened.value) {
       // If the sidebar is opened, save values and fetch summary data
+
+      const dateFormated = moment().format('DD/MM/YY HH:mm:ss');
       saveValues.value = true;
       summaryValues.value = UseUserStoreValues().getSummary;
       grandTotal.value = UseUserStoreValues().getGrandTotal;
       console.log(summaryValues.value);
-      summaryValues.value.push({ grandTotal: grandTotal.value });
+      summaryValues.value.push({ grandTotal: grandTotal.value, itemDate: dateFormated });
       UseSalesStore().addSaleHistory(summaryValues.value);
     } else {
       // If the sidebar is closed, reset summary and grand total
