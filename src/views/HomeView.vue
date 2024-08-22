@@ -41,7 +41,7 @@
           <!-- Summary of selected items -->
           <Transition>
             <ul v-if="summaryValues.length > 0" class="pt-[30%] overflow-auto">
-              <li v-for="(item, index) in summaryValues" :key="index"
+              <li v-for="(item, index) in summaryValues.filter( item => item.itemName)" :key="index"
                 class="px-2 mb-1 text-lg font-medium bg-white rounded-md shadow-md font-poppins text-sky-800">
                 {{ item.itemAmount }} {{ item.itemName }} ${{ item.itemSubtotal }}
               </li>
