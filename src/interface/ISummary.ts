@@ -3,5 +3,6 @@ interface ISummary {
     itemPrice: number,
     itemAmount: number,
     itemSubtotal:number,
+    itemDate?:string
 }
 export default ISummary;

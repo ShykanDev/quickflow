@@ -78,7 +78,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
     getTotalItems(): Array<IItem> {
       return this.totalItems;
     },
-    getSummary(): Array<object> {
+    getSummary(): Array<ISummary> {
       return this.summary;
     },
   },
