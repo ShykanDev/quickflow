@@ -15,7 +15,7 @@ export const UseSalesStore = defineStore('UseSalesStore', {
     },
     actions:{
         addSaleHistory(newSale: object): void{
-            this.salesHistory.push(newSale);
+            this.salesHistory.unshift (newSale);
         }
     }
 })

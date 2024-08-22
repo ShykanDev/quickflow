@@ -24,17 +24,21 @@ import MainLayout from '@/layout/MainLayout.vue';
 import { UseSalesStore } from '@/store/UseSalesStore';
 import { computed, onMounted, ref } from 'vue';
 
-const salesHistory = computed(() => UseSalesStore().getSalesHistory.reverse());
+const salesHistory = computed(() => UseSalesStore().getSalesHistory);
 let totalEarned = ref(0);
 
+
+
 const totalEarnings = []
-onMounted(() => {
-    
+const calcTotal = () => {
     salesHistory.value.forEach((sale) => {
        totalEarnings.push(sale[0].grandTotal) 
     })
     totalEarned.value = totalEarnings.reduce((a, b) => a + b);
     
+}
+onMounted(() => {
+    if(salesHistory.value.length>0) calcTotal();
 })
 </script>
 

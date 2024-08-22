@@ -22,7 +22,7 @@
         </Transition>
         <!-- Sidebar with items summary, slides in and out based on 'isSideBarOpened' -->
         <section :class="{'-translate-x-full': !isSideBarOpened, 'translate-x-0': isSideBarOpened}"
-          class="fixed flex justify-center transition-transform duration-500 top-0 bottom-0 left-0 right-[50%] bg-sky-50 z-10 px-2">
+              class="fixed flex transition-transform duration-500 top-0 bottom-0 left-0 right-[50%] bg-sky-50 z-10 px-2 flex-col items-center justify-start">
           <!-- Sidebar toggle button with rotation animation -->
           <Transition>
             <v-icon v-if="!isSideBarOpened" :class="{' text-sky-400': isSideBarOpened, '': !isSideBarOpened}"
@@ -52,12 +52,12 @@
               <!-- Message when there are no items selected -->
             </ul>
           </Transition>
+          <SaveToSales  @click="pushSummaryToSales" class="cursor-pointer" />
         </section>
 
         <!-- Grand total button that appears when the sidebar is closed -->
         <Transition>
           <div class="fixed left-0 right-0 z-50 flex justify-between px-2 bottom-3">
-            <SaveToSales  @click="pushToSales" v-if="!isSideBarOpened" class="cursor-pointer" />
             <GrandTotal v-if="!isSideBarOpened" class="" />
           </div>
         </Transition>
@@ -75,16 +75,18 @@ import ISummary from '@/interface/ISummary';
 import MainLayout from '@/layout/MainLayout.vue';
 import { UseSalesStore } from '@/store/UseSalesStore';
 import { UseUserStoreValues } from '@/store/UseStoreValues';
-import { onMounted, onUnmounted, ref, Ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, Ref } from 'vue';
 import moment from 'moment';
+import { useRoute, useRouter } from 'vue-router';
 
 let items = UseUserStoreValues().getTotalItems;
 const saveValues = ref(false);
 let grandTotal = ref(UseUserStoreValues().getGrandTotal);
 const isSideBarOpened = ref(false);
 
-// Function to set the 'isSideBarOpened' value to false and reset summary and grand total
+const router = useRouter();
 
+const valuesToPush1 = ref();
 
 // Function to handle opening and closing the sidebar
 const handleOpenSideBar = async (close?: boolean) => {
@@ -99,30 +101,40 @@ const handleOpenSideBar = async (close?: boolean) => {
       summaryValues.value = UseUserStoreValues().getSummary;
       grandTotal.value = UseUserStoreValues().getGrandTotal;
       console.log(summaryValues.value);
-      summaryValues.value.push({ grandTotal: grandTotal.value, itemDate: dateFormated });
-      UseSalesStore().addSaleHistory(summaryValues.value);
+       summaryValues.value.push({ grandTotal: grandTotal.value, itemDate: dateFormated });
+       valuesToPush1.value = summaryValues.value; 
+      console.log('Values to push:',  valuesToPush1.value);
+      // UseSalesStore().addSaleHistory(summaryValues.value);
     } else {
       // If the sidebar is closed, reset summary and grand total
       saveValues.value = false;
       UseUserStoreValues().resetSummary();
-      summaryValues.value = [];
+      summaryValues.value = UseUserStoreValues().getSummary;
       grandTotal.value = UseUserStoreValues().getGrandTotal;
+      valuesToPush1.value = [];
     }
   } catch (error) {
     console.log(error);
   }
 };
 
+const pushSummaryToSales = () => {
+    try {
+     UseSalesStore().addSaleHistory(valuesToPush1.value)
+     UseUserStoreValues().resetSummary();
+     summaryValues.value = UseUserStoreValues().getSummary;
+      valuesToPush1.value = [];
+      router.push({name:'sales'})
+    } catch (error) {
+      console.log('Error while adding to History' + error);
+      
+    }
+}
 
 // function to push values from summary to sales store history
-const pushToSales = (): void => {
-  // handleOpenSideBar(true)
-  console.log("values summary");
-  console.log(summaryValues.value);
-  // UseSalesStore().addSaleHistory(summaryValues.value);
-}
+
 // Array holding the summary of selected items
-let summaryValues: Ref<Array<ISummary>> = ref(UseUserStoreValues().getSummary);
+let summaryValues: Ref<Array<ISummary>> = computed(() => UseUserStoreValues().getSummary);
 
 // Lifecycle hook: Reset grand total and sells data when component mounts
 onMounted(() => {
