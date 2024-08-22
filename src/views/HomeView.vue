@@ -110,25 +110,14 @@ const handleOpenSideBar = async (close?: boolean) => {
 
 // function to push values from summary to sales store history
 const pushToSales = (): void => {
-  const newSale: ISummary = {
-    itemName: '',
-    itemPrice: 0,
-    itemAmount: 0,
-    itemSubtotal: 0,
-    itemDate: new Date().toLocaleDateString(),
-  }
   saveValues.value = true;
   summaryValues.value = UseUserStoreValues().getSummary;
   grandTotal.value = UseUserStoreValues().getGrandTotal;
-  console.log(summaryValues.value);
-  summaryValues.value.forEach((item) => {
-    newSale.itemName = item.itemName,
-    newSale.itemPrice = item.itemPrice,
-    newSale.itemAmount = item.itemAmount,
-    newSale.itemSubtotal = item.itemSubtotal
+
+  console.log('Summary Values: ', summaryValues.value);
+  summaryValues.value.forEach( e => {
+    UseSalesStore().addSaleHistory(e);
   })
-  UseSalesStore().addSaleHistory(newSale)
-  console.log(UseSalesStore().getSalesHistory);
 }
 // Array holding the summary of selected items
 let summaryValues: Ref<Array<ISummary>> = ref(UseUserStoreValues().getSummary);
