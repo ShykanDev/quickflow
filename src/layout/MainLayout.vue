@@ -10,24 +10,24 @@
             </div>
          </div>
          <!-- main content -->
-          <div class="pt-11">
+          <div class="pt-14">
             <!-- main sidebar -->
-            <div v-if="isMainSideBarOpened" class="fixed bottom-0 left-0 z-40 flex flex-col items-center gap-1 p-1 pt-8 shadow-xl font-poppins right-1/4 text-sky-950 bg-slate-50 top-8">  
+            <div  :class="{'-translate-x-full': !isMainSideBarOpened, 'translate-x-0': isMainSideBarOpened }" class="fixed bottom-0 left-0 z-40 flex flex-col items-center gap-1 p-1 pt-5 transition-all duration-300 ease-out shadow-xl font-poppins right-1/4 text-sky-950 bg-slate-50 top-8">  
                 <RouterLink :to="{name: 'home'}"  class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
                     <v-icon name="hi-solid-home" scale="1.5" color="#075985"/>
-                    <div :class="{'bg-sky-900 text-white': route.name === 'home'}" class="flex items-center w-full gap-2 px-1 text-lg font-medium bg-white rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
+                    <div :class="{'bg-sky-800 text-white': route.name === 'home'}" class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
                         <h2>Inicio</h2>
                     </div>
                 </RouterLink>
                 <RouterLink :to="{name: 'sales'}" class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
                     <v-icon name="fa-history" scale="1.5" color="#075985"/>
-                    <div :class="{'bg-sky-900 text-white': route.name === 'sales'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium bg-white rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
+                    <div :class="{'bg-sky-900 text-white': route.name === 'sales'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
                         <h2>Ventas</h2>
                     </div>
                 </RouterLink>
                 <RouterLink :to="{name: 'settings'}" class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
                     <v-icon name="md-settingsapplications-sharp" scale="1.5" color="#075985"/>
-                    <div :class="{'bg-sky-900 text-white': route.name === 'settings'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium bg-white rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
+                    <div :class="{'bg-sky-900 text-white': route.name === 'settings'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
                         <h2>Configuración</h2>
                     </div>
                 </RouterLink>
@@ -50,7 +50,4 @@ const route = useRoute();
 
 
 </script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

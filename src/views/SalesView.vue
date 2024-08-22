@@ -3,7 +3,7 @@
        <MainLayout>
             <template #main>
                 <div>
-                    <h1>This is a sales view</h1>
+                    <h1 class="text-2xl font-medium font-poppins">Ventas</h1>
                 </div>
             </template>
        </MainLayout>
