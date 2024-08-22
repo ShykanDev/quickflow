@@ -95,6 +95,8 @@ const handleOpenSideBar = async (close?: boolean) => {
       saveValues.value = true;
       summaryValues.value = UseUserStoreValues().getSummary;
       grandTotal.value = UseUserStoreValues().getGrandTotal;
+      console.log(summaryValues.value);
+      UseSalesStore().addSaleHistory(summaryValues.value);
     } else {
       // If the sidebar is closed, reset summary and grand total
       saveValues.value = false;
@@ -110,14 +112,10 @@ const handleOpenSideBar = async (close?: boolean) => {
 
 // function to push values from summary to sales store history
 const pushToSales = (): void => {
-  saveValues.value = true;
-  summaryValues.value = UseUserStoreValues().getSummary;
-  grandTotal.value = UseUserStoreValues().getGrandTotal;
-
-  console.log('Summary Values: ', summaryValues.value);
-  summaryValues.value.forEach( e => {
-    UseSalesStore().addSaleHistory(e);
-  })
+  // handleOpenSideBar(true)
+  console.log("values summary");
+  console.log(summaryValues.value);
+  // UseSalesStore().addSaleHistory(summaryValues.value);
 }
 // Array holding the summary of selected items
 let summaryValues: Ref<Array<ISummary>> = ref(UseUserStoreValues().getSummary);

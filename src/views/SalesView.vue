@@ -2,9 +2,16 @@
     <div class="">
        <MainLayout>
             <template #main>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-4">
                     <h1 class="text-2xl font-medium font-poppins">Ventas</h1>
-                    
+                    <div v-for="(sale,index) in salesHistory" :key="index" class="text-white bg-black min-w-24 min-h-44">
+                        <div v-for="(item,index) in sale" :key="index">
+                            <p>{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p>
+                            <!-- We gonna sum all the subtotals -->
+                            <p>Total Final </p>
+                              
+                        </div>
+                    </div>
                 </div>
             </template>
        </MainLayout>
@@ -14,9 +21,9 @@
 <script lang="ts" setup>
 import MainLayout from '@/layout/MainLayout.vue';
 import { UseSalesStore } from '@/store/UseSalesStore';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-const salesHistory = ref(UseSalesStore().getSalesHistory)
+const salesHistory = computed(() => UseSalesStore().getSalesHistory);
 
 </script>
 
