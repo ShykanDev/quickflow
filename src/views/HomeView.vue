@@ -6,9 +6,9 @@
         <div class="fixed top-0 bottom-[-100%] left-0 right-0 bg-slate-100 -z-10">
         </div>
         <!-- Main content section where items are displayed using a flex layout and animation -->
-        <section class="z-20 flex flex-wrap justify-center gap-5 pt-3 overflow-hidden pb-28 animate-fade-left">
+        <section class="z-20 flex flex-wrap justify-center gap-5 pt-3 overflow-hidden pb-28 animate-shake">
           <!-- Loop through each item in the 'items' array and pass properties to the 'ItemCard' component -->
-          <div v-for="(item, index) in items" :key="index">
+          <div v-for="(item, index) in items" :key="index" class="">
             <ItemCard :item-img="item.itemImage" :item-name="item.itemName" :item-price="item.itemPrice"
               :save-values="saveValues" />
           </div>
