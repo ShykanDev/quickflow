@@ -6,11 +6,10 @@
                     <h1 class="text-2xl font-medium font-poppins">Ventas</h1>
                     <div v-for="(sale,index) in salesHistory" :key="index" class="text-white bg-black min-w-24 min-h-44">
                         <div v-for="(item,index) in sale" :key="index">
-                            <p>{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p>
+                            <p v-if="item.itemName">{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p>
                             <!-- We gonna sum all the subtotals -->
-                            <p>Total Final </p>
-                              
                         </div>
+                        <p>Total: ${{ sale[0].grandTotal }}.00 </p>
                     </div>
                 </div>
             </template>

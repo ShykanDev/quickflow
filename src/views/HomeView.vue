@@ -96,6 +96,7 @@ const handleOpenSideBar = async (close?: boolean) => {
       summaryValues.value = UseUserStoreValues().getSummary;
       grandTotal.value = UseUserStoreValues().getGrandTotal;
       console.log(summaryValues.value);
+      summaryValues.value.push({ grandTotal: grandTotal.value });
       UseSalesStore().addSaleHistory(summaryValues.value);
     } else {
       // If the sidebar is closed, reset summary and grand total
