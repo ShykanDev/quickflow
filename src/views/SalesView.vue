@@ -11,11 +11,21 @@
                         <h2 class="text-xl font-">Ir al inicio</h2>
                     </RouterLink>
                     <div class="flex items-center gap-2 ml-5 text-lg justify-left font-poppins ">
-                        <h2 class="text-lg font-medium text-sky-800">Ingresos Totales: </h2>
-                        <h2 v-if="showTotal" class="text-xl font-medium text-sky-800">${{ totalEarned }}.00</h2>
-                        <h2 v-if="!showTotal" class="text-xl font-medium text-sky-800" >$****</h2>
+                        <h2 class="text-lg font-medium text-emerald-700">Ingresos Totales: </h2>
+                        <h2 v-if="showTotal" class="text-xl font-medium text-emerald-700">${{ totalEarned }}.00</h2>
+                        <h2 v-if="!showTotal" class="text-xl font-medium text-emerald-700" >$****</h2>
                         <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="showTotal" name="io-eye-off-sharp" scale="1.5" color="#075985" />
                         <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="!showTotal" name="io-eye-sharp" scale="1.5" color="#075985" />
+                    </div>
+                    <div class="flex items-center gap-2 ml-5 text-lg justify-left font-poppins ">
+                        <h2 class="text-lg font-medium text-red-900">Gastos:  </h2>
+                        <h2 v-if="showTotal" class="text-xl font-medium text-red-900">${{ expenses }}.00</h2>
+                        <h2 v-if="!showTotal" class="text-xl font-medium text-red-900" >$****</h2>
+                    </div>
+                    <div class="flex flex-col items-start w-9/12 gap-2 ml-5 text-lg font-poppins">
+                        <h2 class="text-lg font-medium text-red-900">Agregar Gasto</h2>
+                        <h2 class="text-lg font-medium text-red-900">Motivo</h2>
+                        <input class="w-full" type="text" placeholder="Comprar agua" >
                     </div>
                     <section class="flex flex-wrap justify-center gap-5">
                         <div v-for="(sale,index) in salesHistory" :key="index" class="box-border relative flex flex-col items-start w-11/12 px-2 transition-transform duration-300 ease-out bg-white shadow-md tex8-black py-7 rounded-xl justify-evenly min-w-24 min-h-44 font-poppins hover:border-sky-800 hover:border hover:scale-105">
@@ -43,13 +53,17 @@ import { computed, onMounted, ref } from 'vue';
 const salesHistory = computed(() => UseSalesStore().getSalesHistory);
 let totalEarned = ref(0);
 
+
 // dynamic value to toogle the view of the total amount
 let showTotal = ref(false);  
+
+
 
 //  function to toggle the showTotal variable
 const toggleShowTotal = () => showTotal.value = !showTotal.value;
 
-const totalEarnings = []
+const totalEarnings = [];
+let expenses = ref(0);
 const calcTotal = () => {
     salesHistory.value.forEach((sale) => {
        totalEarnings.push(sale[0].grandTotal) 
