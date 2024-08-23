@@ -11,16 +11,12 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
           itemName: "Tacos",
           itemPrice: 30,
           itemImage: require("../assets/img/items/taquito.png"),
+          itemDescription: ["Tacos de Mariscos"],
         },
         {
-          itemName: "Quesadillas",
-          itemPrice: 30,
-          itemImage: require("@/assets/img/items/quesadillaSimple.png"),
-        },
-        {
-          itemName: "Quesadillas Carnitas",
+          itemName: "Gorditas Carnitas",
           itemPrice: 40,
-          itemImage: require("@/assets/img/items/quesadillaCarnitas.png"),
+          itemImage: require("@/assets/img/items/gorditaChicharron.png"),
         },
         {
           itemName: "Tortas",
@@ -33,14 +29,44 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
           itemImage: require("@/assets/img/items/torta.png"),
         },
         {
+          itemName: "Quesadillas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/quesadillaSimple.png"),
+        },
+        {
+          itemName: "Quesadillas Carnitas",
+          itemPrice: 40,
+          itemImage: require("@/assets/img/items/quesadillaCarnitas.png"),
+        },
+        {
           itemName: "Gorditas",
           itemPrice: 35,
           itemImage: require("@/assets/img/items/gorditas-min.png"),
         },
         {
-          itemName: "Gorditas Carnitas",
-          itemPrice: 40,
-          itemImage: require("@/assets/img/items/gorditaChicharron.png"),
+          itemName: "Chamorro Por Pieza",
+          itemPrice: 150,
+          itemImage: require("@/assets/img/items/chamorro.jpg"),
+        },
+        {
+          itemName: "Tacos De Bistec",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/bistecTacos.png"),
+        },
+        {
+          itemName: "Gorditas Chicharron Con Carnitas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/gorditasChicharronCarnitas.png"),
+        },
+        {
+          itemName: "Quesadillas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/quesadillas.png"),
+        },
+        {
+          itemName: "Quesadilla de Carnitas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/peso.png"),
         },
         {
           itemName: "Refrescos Vidrio",
@@ -59,7 +85,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
         },
         {
           itemName: "Por Kilo",
-          itemPrice: 380,
+          itemPrice: 400,
           itemImage: require("@/assets/img/items/peso.png"),
         },
       ] as Array<IItem>,

@@ -6,11 +6,11 @@
                 <div class="absolute left-2">
                     <v-icon @click="toggleSidebar" class="cursor-pointer" name="md-menu-round" scale="1.5" color="#075985" />
                 </div>
-                <h1 class="p-1 text-xl font-medium select-none font-poppins" >Carnitas Estilo Michoacán</h1>
+                <h1 class="p-1 text-xl font-medium select-none font-poppins text-sky-800" >Carnitas Estilo Michoacán</h1>
             </div>
          </div>
          <!-- main content -->
-          <div class="pt-14">
+          <div class="pt-12">
             <!-- main sidebar -->
             <div  :class="{'-translate-x-full': !isMainSideBarOpened, 'translate-x-0': isMainSideBarOpened }" class="fixed bottom-0 left-0 z-40 flex flex-col items-center gap-1 p-1 pt-5 transition-all duration-300 ease-out shadow-xl font-poppins right-1/4 text-sky-950 bg-slate-50 top-8">  
                 <RouterLink :to="{name: 'home'}"  class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
