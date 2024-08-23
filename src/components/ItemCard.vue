@@ -2,7 +2,7 @@
     <div class="relative flex flex-col items-center gap-2 px-2 py-3 transition-transform duration-200 bg-white shadow-md select-none y-2 min-w-44 max-w-44 rounded-xl sm:min-w-52 hover:scale-105 hover:border hover:border-sky-700">
         <!-- <h3 v-if="amount >0" class="absolute top-0 text-2xl font-bold text-purple-400 select-none right-2 font-poppins">{{ amount }}</h3> -->
         <h2 class="pt-1 text-xl font-medium select-none font-poppins text-slate-600 sm:text-2xl">{{ props.itemName }}</h2>
-        <img class="object-contain w-24 h-24 select-none " :src="props.itemImg" alt=""> 
+        <img v-if="showImages" class="object-contain w-24 h-24 select-none " :src="props.itemImg" alt=""> 
             <div class="flex flex-col items-center w-full gap-2 font-poppins">
             <label class="text-2xl font-semibold select-none user-select-none text-sky-800" for="">${{
                 props.itemPrice }}</label>
@@ -26,8 +26,17 @@
 <script lang="ts" setup>
 import ISummary from '@/interface/ISummary';
 import { UseUserStoreValues } from '@/store/UseStoreValues';
+import { UseUserPreferences } from '@/store/UseUserPreferences';
 import { computed, defineProps, ref, watch } from 'vue';
 import { defineEmits } from 'vue';
+
+// User Preferences Store
+const storeUserPreferences = UseUserPreferences();
+
+// Boolean value for show images
+let showImages = computed(()=>storeUserPreferences.getShowImages)
+
+
 const props = defineProps({
     itemName: String,
     itemImg: String,

@@ -20,17 +20,30 @@
                     </div>
                 </RouterLink>
                 <RouterLink :to="{name: 'sales'}" class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
-                    <v-icon name="fa-history" scale="1.5" color="#075985"/>
+                    <v-icon name="md-pointofsale" scale="1.5" color="#075985"/>
                     <div :class="{'bg-sky-900 text-white': route.name === 'sales'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
                         <h2>Ventas</h2>
                     </div>
                 </RouterLink>
-                <RouterLink :to="{name: 'settings'}" class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
+                <RouterLink :to="{name: 'history'}" class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
+                    <v-icon name="fa-history" scale="1.5" color="#075985"/>
+                    <div :class="{'bg-sky-900 text-white': route.name === 'settings'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
+                        <h2>Historial De Ventas</h2>
+                    </div>
+                </RouterLink>
+                <div class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
+                    <v-icon name="bi-image-fill" scale="1.5" color="#075985"/>
+                    <div @click="togglePhotos" :class="{'bg-sky-900 text-white': route.name === 'settings'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
+                        <h2>Mostrar Fotos</h2>
+                        <ToggleSwitch :save-values="savePhotos" />
+                    </div>
+                </div>
+                <!-- <RouterLink :to="{name: 'settings'}" class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
                     <v-icon name="md-settingsapplications-sharp" scale="1.5" color="#075985"/>
                     <div :class="{'bg-sky-900 text-white': route.name === 'settings'}"  class="flex items-center w-full gap-2 px-1 text-lg font-medium rounded-lg shadow-sm hover:text-white hover:bg-sky-700">
                         <h2>Configuración</h2>
                     </div>
-                </RouterLink>
+                </RouterLink> -->
             </div>
             <slot name="main">
 
@@ -40,14 +53,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import ToggleSwitch from '@/components/settings/ToggleSwitch.vue';
+import { UseUserPreferences } from '@/store/UseUserPreferences';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+// User preferences 
+const userPreferences = UseUserPreferences();
 
 const isMainSideBarOpened = ref(false)
     const toggleSidebar = ():boolean => isMainSideBarOpened.value = !isMainSideBarOpened.value
 const route = useRoute();
 
+// function to show or hide photos
+let savePhotos = computed(()=>userPreferences.getShowImages);
 
+const togglePhotos = ():void => {
+    userPreferences.setShowImages();
+}
 
+onMounted(() => {
+    savePhotos = computed(()=>userPreferences.getShowImages);
+});
 </script>
 <style scoped></style>

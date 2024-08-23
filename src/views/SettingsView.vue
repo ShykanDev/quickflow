@@ -2,8 +2,20 @@
     <div class="">
        <MainLayout>
             <template #main>
+                <div class="fixed top-0 bottom-0 left-0 right-0 bg-slate-100 -z-20">
+                </div>
                 <div>
-                    <h1>This is a settings view</h1>
+                    <h1 class="pt-2 text-xl font-medium text-sky-800 font-poppins">Configuracion</h1>
+                    <div class="">
+                        <div class="flex items-center ">
+                            <p>Mostrar Imagenes</p>
+                            <ToggleSwitch/>
+                        </div>
+                        <div class="flex items-center ">
+                            <p>Mostrar Imagenes</p>
+                            <ToggleSwitch/>
+                        </div>
+                    </div>
                 </div>
             </template>
        </MainLayout>
@@ -11,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+import ToggleSwitch from '@/components/settings/ToggleSwitch.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 
 

@@ -10,9 +10,9 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp        } from "oh-vue-icons/icons";
+import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp, MdPointofsale,BiImageFill         } from "oh-vue-icons/icons";
 
-addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp       );
+addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp, MdPointofsale,BiImageFill        );
 
 
 const app = createApp(App)
