@@ -7,8 +7,8 @@
                 <div class="flex flex-col items-center animate-fade-up">
                     <h1 class="pt-2 text-xl font-medium text-sky-800 font-poppins">Historial De Ventas</h1>
                     <div class="flex items-center gap-1">
-                        <p>Aqui se mostrará el resumen histórico de ventas cada que se guarden los datos en el boton 'guardar' en la seccion de</p>
-                        <RouterLink :to="{name: 'sales'}" class="text-lg font-bold underline text-sky-800">ventas</RouterLink>
+                        <p>Aqui se mostrará el resumen histórico de ventas cada que se guarden los datos en el boton 'guardar' en la seccion de <RouterLink :to="{name: 'sales'}" class="text-lg font-bold underline text-sky-800">ventas</RouterLink></p>
+                        
                     </div>
                 </div>
             </template>
