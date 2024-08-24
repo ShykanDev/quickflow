@@ -147,6 +147,10 @@ const addExpense = () => {
         expenseAmount.value = 0;
         isError.value = false;
         console.log('Expense added successfully', salesStore.getUserExpenses);
+
+        // value that have the total amount of expenses reduced from the userExpenses array
+        const valueReduced = salesStore.getUserExpenses.reduce((a, b) => a + b.expenseAmount, 0);
+        expenses.value = valueReduced;
         isInfo.value = true;
         infoMessage.value = 'Gasto añadido correctamente';
         timeoutId = setTimeout(() => {
