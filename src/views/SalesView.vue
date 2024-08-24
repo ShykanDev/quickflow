@@ -5,13 +5,13 @@
                 <div class="fixed top-0 bottom-0 left-0 right-0 bg-slate-100 -z-20">
                 </div>
                 <div class="flex flex-col gap-4 min-h-dvh pb-9 animate-fade-down">
-                    <h1 @click="sumExpenses" class="text-3xl font-medium font-poppins text-sky-800 ">Ventas</h1>
+                    <h1 class="text-3xl font-medium font-poppins text-sky-800 ">Ventas</h1>
                     <RouterLink :to="{name:'home'}" class="flex items-center gap-2 p-1 ml-3 bg-white shadow-md min-w-32 text-sky-800 rounded-2xl max-w-44">
                         <v-icon name="hi-solid-home" color="#246D93" scale="1.6" />
                         <h2 class="text-xl font-">Ir al inicio</h2>
                     </RouterLink>
                     <div class="flex items-center gap-2 ml-5 text-lg justify-left font-poppins ">
-                        <h2 class="text-lg font-medium text-emerald-700">Ingresos Totales: </h2>
+                        <h2 class="text-lg font-medium text-emerald-700">Ingresos Netos: </h2>
                         <h2 v-if="showTotal" class="text-xl font-medium text-emerald-700">${{ totalEarned }}.00</h2>
                         <h2 v-if="!showTotal" class="text-xl font-medium text-emerald-700" >$****</h2>
                         <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="showTotal" name="io-eye-off-sharp" scale="1.5" color="#075985" />
@@ -20,6 +20,11 @@
                     <div class="flex items-center gap-2 ml-5 text-lg justify-left font-poppins ">
                         <h2 class="text-lg font-medium text-red-900">Gastos:  </h2>
                         <h2 v-if="showTotal" class="text-xl font-medium text-red-900">${{ expenses }}</h2>
+                        <h2 v-if="!showTotal" class="text-xl font-medium text-red-900" >$****</h2>
+                    </div>
+                    <div class="flex items-center gap-2 ml-5 text-lg justify-left font-poppins ">
+                        <h2 class="text-lg font-medium text-red-900">Balance Final:  </h2>
+                        <h2 v-if="showTotal" class="text-xl font-medium text-red-900">${{ finalBalance }}</h2>
                         <h2 v-if="!showTotal" class="text-xl font-medium text-red-900" >$****</h2>
                     </div>
                     <div class="flex flex-col items-start w-9/12 gap-2 ml-5 text-lg font-poppins">
@@ -87,7 +92,7 @@ const toggleShowTotal = () => showTotal.value = !showTotal.value;
 
 const totalEarnings = [];
 
-let expenses = ref(0);
+let expenses = ref(0); // variable to store the expenses
 const calcTotal = () => {
     salesHistory.value.forEach((sale) => {
        totalEarnings.push(sale[0].grandTotal) 
@@ -151,6 +156,7 @@ const addExpense = () => {
         // value that have the total amount of expenses reduced from the userExpenses array
         const valueReduced = salesStore.getUserExpenses.reduce((a, b) => a + b.expenseAmount, 0);
         expenses.value = valueReduced;
+        finalBalance.value = totalEarned.value - valueReduced;
         isInfo.value = true;
         infoMessage.value = 'Gasto añadido correctamente';
         timeoutId = setTimeout(() => {
@@ -162,19 +168,10 @@ const addExpense = () => {
     }
 }
 
-// function to reducce the amount of expenses from the userExpenses array
-const sumExpenses = () => {
-    let totalUserExpensesAmount = [];
-    try {
-         salesStore.getUserExpenses.forEach((e) => {
-            totalUserExpensesAmount.push(e.expenseAmount)  
-         });
-        let finalResult = totalUserExpensesAmount.reduce((a,b) => a+b)
-        expenses.value = finalResult;
-    } catch (error) {
-        console.log('Could not reduce expenses', error);
-    }
-}
+// value to show the final balance
+let finalBalance = ref(0);
+// function to reduce the amount of expenses from the userExpenses array
+
 
 onMounted(() => {
     if(salesHistory.value.length>0) calcTotal();
