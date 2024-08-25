@@ -8,13 +8,17 @@
                 </div>
                 <h1 class="p-1 text-xl font-medium select-none font-poppins text-sky-800" >Carnitas Estilo Michoacán</h1>
                 <div class="absolute right-2">
-                    <v-icon @click="toggleSidebar" class="cursor-pointer" name="md-menu-round" scale="1.5" color="#075985" />
+                    <!-- <v-icon @click="toggleSidebar" class="cursor-pointer" name="md-menu-round" scale="1.5" color="#075985" /> -->
+                     <HamMenuAnimated @click="(isMainSideBarOpened) ? isMainSideBarOpened = false : isMainSideBarOpened = true"/>
                 </div>
             </div>
          </div>
          <!-- main content -->
           <div class="pt-12">
             <!-- main sidebar -->
+             <Transition>
+                 <section v-if="isMainSideBarOpened" class="fixed top-0 bottom-0 left-0 right-0 z-40 transition-all duration-500 bg-sky-950 bg-opacity-70 animate-ease-out" />
+            </Transition>
             <div  :class="{'translate-x-full': !isMainSideBarOpened, 'translate-x-0': isMainSideBarOpened }" class="fixed bottom-0 right-0 z-40 flex flex-col items-center gap-1 p-1 pt-5 transition-all duration-300 ease-out shadow-xl right-0-0 font-poppins text-sky-950 bg-slate-50 top-8">  
                 <RouterLink :to="{name: 'home'}"  class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
                     <v-icon name="hi-solid-home" scale="1.5" color="#075985"/>
@@ -56,6 +60,7 @@
 </template>
 
 <script lang="ts" setup>
+import HamMenuAnimated from '@/components/home/HamMenuAnimated.vue';
 import ToggleSwitch from '@/components/settings/ToggleSwitch.vue';
 import { UseUserPreferences } from '@/store/UseUserPreferences';
 import { computed, onMounted, ref } from 'vue';
@@ -81,4 +86,14 @@ onMounted(() => {
     savePhotos.value = savedPhotos.value;
 });
 </script>
-<style scoped></style>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}</style>
+

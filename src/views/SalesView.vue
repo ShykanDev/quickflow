@@ -5,8 +5,8 @@
                 <div class="fixed top-0 bottom-0 left-0 right-0 bg-slate-100 -z-20">
                 </div>
                 <div class="flex flex-col gap-4 min-h-dvh pb-9 animate-fade-down">
-                    <h1 class="text-3xl font-medium font-poppins text-sky-800 ">Ventas</h1>
-                    <RouterLink :to="{name:'home'}" class="flex items-center gap-2 p-1 ml-3 bg-white shadow-md min-w-32 text-sky-800 rounded-2xl max-w-44">
+                    <h1 class="text-3xl font-medium font-poppins text-sky-800">Ventas</h1>
+                    <RouterLink :to="{name:'home'}" class="flex items-center gap-2 p-1 ml-3 bg-white shadow-md animate-delay-200 animate-fade-down min-w-32 text-sky-800 rounded-2xl max-w-44">
                         <v-icon name="hi-solid-home" color="#246D93" scale="1.6" />
                         <h2 class="text-xl font-">Ir al inicio</h2>
                     </RouterLink>
@@ -15,7 +15,7 @@
                             <v-icon class="pr-1 bg-white cursor-pointer rounded-l-3xl"  name="gi-receive-money" scale="1.5" color="#2B695D" />
                             <h2 class="text-lg font-medium text-[#2B695D]">Ingresos Netos: </h2>
                             <div class="flex items-center pl-2 text-lg font-medium justify-left font-poppins">
-                                <h2 v-if="showTotal" class="pr-2 text-xl   text-[#2B695D]">${{ totalEarned }}.00</h2>
+                                <h2 v-if="showTotal" class="pr-2 text-xl   text-[#2B695D]">${{ totalEarned }}</h2>
                                 <h2 v-if="!showTotal" class="pr-2 text-xl text-[#2B695D]" >$****</h2>
                                 <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="showTotal" name="io-eye-off-sharp" scale="1.5" color="#075985" />
                                 <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="!showTotal" name="io-eye-sharp" scale="1.5" color="#075985" />
@@ -73,13 +73,17 @@
                     <section class="flex flex-wrap justify-center gap-5">
                         <div v-for="(sale,index) in salesHistory" :key="index" class="box-border relative flex flex-col items-start w-11/12 px-2 transition-transform duration-300 ease-out bg-white shadow-md tex8-black py-7 rounded-xl justify-evenly min-w-24 min-h-44 font-poppins hover:border-sky-800 hover:border hover:scale-105">
                             <div class="absolute top-1 right-1">
-                                <p class="text-lg font-medium text-sky-800" >Fecha: {{ sale[0].itemDate }}</p> 
+                                <p class="text-sm font-medium text-sky-800" >Fecha: {{ sale[0].itemDate }}</p> 
                             </div>
-                            <div v-for="(item,index) in sale" :key="index">
-                                <p v-if="item.itemName" class="text-lg font-medium" >{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p>
-                                
+                            <div v-for="(item,index) in sale" :key="index" class="flex items-center justify-center w-full">
+                                <!-- <p v-if="item.itemName" class="text-lg font-medium" >{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p> -->
+                                 <div class="flex flex-wrap items-center justify-start w-full gap-1">
+                                    <p class="text-lg font-medium text-sky-700" v-if="item.itemAmount">{{ item.itemAmount }}</p>
+                                    <p class="text-lg font-medium text-sky-700" v-if="item.itemName">{{ item.itemName }}</p>
+                                    <p class="text-lg font-medium underline text-sky-900" v-if="item.itemSubtotal">${{ item.itemSubtotal}}</p>
+                                 </div>
                             </div>
-                            <p class="pt-2 text-xl font-medium text-sky-900">Total: ${{ sale[0].grandTotal }}.00 </p>
+                            <p class="pt-2 text-xl font-bold text-sky-900">Total: ${{ sale[0].grandTotal }}.00 </p>
                         </div>
                     </section>
                 </div>

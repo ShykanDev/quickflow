@@ -17,7 +17,7 @@
         <Transition>
           <div v-if="isSideBarOpened">
             <section @click="handleOpenSideBar(true)"
-              class="fixed top-0 bottom-0 left-0 right-0 transition-all duration-500 bg-black bg-opacity-70 animate-ease-out" />
+              class="fixed top-0 bottom-0 left-0 right-0 transition-all duration-500 bg-sky-950 bg-opacity-70 animate-ease-out" />
           </div>
         </Transition>
         <!-- Sidebar with items summary, slides in and out based on 'isSideBarOpened' -->

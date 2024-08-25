@@ -50,5 +50,5 @@ export const UseSalesStore = defineStore('UseSalesStore', {
         },
 
     },
-    // persist: true
+    persist: true
 })
