@@ -4,7 +4,7 @@
          <div class="fixed top-0 left-0 right-0 z-50 ">
             <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12">
                 <div class="absolute left-2">
-                    <v-icon  name="gi-pig" scale="1.7" color="#ffb282" />
+                    <v-icon  name="gi-pig" scale="1.7" color="#075985" />
                 </div>
                 <h1 class="p-1 text-xl font-medium select-none font-poppins text-sky-800" >Carnitas Estilo Michoacán</h1>
                 <div class="absolute right-2">

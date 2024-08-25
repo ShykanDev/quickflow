@@ -53,6 +53,7 @@
             </ul>
           </Transition>
           <SaveToSales  @click="pushSummaryToSales" class="cursor-pointer" />
+          <p v-if="isError" class="text-sm font-semibold text-red-700 font-poppins">{{ errorMessage }}</p>
         </section>
 
         <!-- Grand total button that appears when the sidebar is closed -->
@@ -87,6 +88,11 @@ const isSideBarOpened = ref(false);
 const router = useRouter();
 
 const valuesToPush1 = ref();
+// boolean that will be used to show/hide an error message
+let isError = ref(false);
+
+// error message that will be used to show/hide an error message
+let errorMessage = ref(''); 
 
 // Function to handle opening and closing the sidebar
 const handleOpenSideBar = async (close?: boolean) => {
@@ -118,14 +124,32 @@ const handleOpenSideBar = async (close?: boolean) => {
   }
 };
 
+// timeout function to hide error message after 3 seconds
+let timeoutId = null;
+// function to push values from summary to sales store history
 const pushSummaryToSales = () => {
-    try {
-     UseSalesStore().addSaleHistory(valuesToPush1.value)
-     UseUserStoreValues().resetSummary();
-     summaryValues.value = UseUserStoreValues().getSummary;
+  if(timeoutId) {
+    clearTimeout(timeoutId);
+  }
+  try {
+    if (summaryValues.value.length >= 2) { 
+      UseSalesStore().addSaleHistory(valuesToPush1.value)
+      UseUserStoreValues().resetSummary();
+      summaryValues.value = UseUserStoreValues().getSummary;
       valuesToPush1.value = [];
       router.push({name:'sales'})
-    } catch (error) {
+      UseSalesStore().pushNewEarn({itemSutotal:grandTotal.value})
+    } else  {
+      isError.value = true;
+      errorMessage.value = 'Agrega primero algun producto!';
+      timeoutId = setTimeout(() => {
+        isError.value = false;
+        errorMessage.value = '';
+      }, 3000);
+      return
+    }
+    }
+    catch (error) {
       console.log('Error while adding to History' + error);
       
     }
