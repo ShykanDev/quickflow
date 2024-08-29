@@ -22,8 +22,8 @@
                             </div>
                         </div>
                     </div>
-                    <div @click="toggleShowDetailedInfo" class="flex items-center pl-3">
-                        <div class="flex p-1 px-2 bg-white shadow-md rounded-2xl">
+                    <div  class="flex items-center pl-3">
+                        <div @click="toggleShowDetailedInfo" class="flex p-1 px-2 bg-white shadow-md rounded-2xl">
                             <h2 class="text-lg font-medium text-sky-800">Ver Informacion detallada</h2>
                             <div class="flex items-center pl-2 text-lg justify-left font-poppins">
                                 <v-icon  v-if="!showDetailedInfo" class="cursor-pointer" name="md-expandcircledown-round" scale="1.5" color="#075985" />
@@ -31,6 +31,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="flex justify-end pr-4 ">
+                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
+                        </div>
                     <section v-if="showDetailedInfo" class="box-border py-2 mx-2 bg-white shadow-md rounded-2xl animate-fade-up">
                     <div class="flex items-center gap-2 ml-1 text-lg justify-left font-poppins">
                         <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-pay-money" scale="1.5" color="#7F1D1D" />
@@ -50,7 +53,7 @@
                             <v-icon class="cursor-pointer" @click="toggleShowAddExpense" v-if="!showAddExpense" name="md-addbox" scale="1.2" color="#075985" />
                             <v-icon class="cursor-pointer" @click="toggleShowAddExpense" v-if="showAddExpense" name="ri-checkbox-indeterminate-fill" scale="1.2" color="#075985" />
                         </div>
-                      
+                       
                         <section v-if="showAddExpense" class="flex flex-col items-start gap-2 animate-fade-right">
                         <h2 class="text-lg font-medium text-sky-800">Motivo</h2>
                         <input v-model="expenseReason" class="w-full border-b-[1px] border-sky-800 shadow-sm focus:outline-none" type="text" placeholder="Compré agua y gas" >
@@ -70,7 +73,7 @@
                     </section>
                     </div>
                 </section>
-                    <section class="flex flex-wrap justify-center gap-5">
+                    <section  class="flex flex-wrap justify-center gap-5">
                         <div v-for="(sale,index) in salesHistory" :key="index" class="box-border relative flex flex-col items-start w-11/12 px-2 transition-transform duration-300 ease-out bg-white shadow-md tex8-black py-7 rounded-xl justify-evenly min-w-24 min-h-44 font-poppins hover:border-sky-800 hover:border hover:scale-105">
                             <div class="absolute top-1 right-1">
                                 <p class="text-sm font-medium text-sky-800" >Fecha: {{ sale[0].itemDate }}</p> 
@@ -95,14 +98,21 @@
 <script lang="ts" setup>
 import MainLayout from '@/layout/MainLayout.vue';
 import { UseSalesStore } from '@/store/UseSalesStore';
+import { UseBackupHistorySales} from '@/store/UseBackupHistorySales';
 import { computed, onMounted, reactive, Ref, ref } from 'vue';
 import moment from 'moment';
 import { storeToRefs } from 'pinia';
+import router from '@/router';
 
 
-
+// sales store (pinia)
 const salesStore = UseSalesStore();
-const salesHistory = computed(() => UseSalesStore().getSalesHistory);
+let salesHistory =  UseSalesStore().getSalesHistory;
+
+// sales backup store (pinia)
+const backupSalesStore = UseBackupHistorySales();
+
+
 let totalEarned = ref(0);
 
 
@@ -119,7 +129,7 @@ const totalEarnings = [];
 let expenses = ref(0); // variable to store the expenses
 // we need to replace this function with the one in the store */*/*/*
 const calcTotal = () => {
-    salesHistory.value.forEach((sale) => {
+    salesHistory.forEach((sale) => {
        totalEarnings.push(sale[0].grandTotal) 
     })
     totalEarned.value = totalEarnings.reduce((a, b) => a + b);
@@ -173,14 +183,11 @@ const addExpense = () => {
     try {
         isInfo.value = false;
         salesStore.pushUserNewExpense(valueToPush);
+        // salesStore.pushUserNewExpense(valueToPush);
         expenseReason.value = '';
         expenseAmount.value = 0;
         isError.value = false;
         console.log('Expense added successfully', salesStore.getUserExpenses);
-
-        // value that have the total amount of expenses reduced from the userExpenses array
-        // *//*/
-        // const valueReduced = salesStore.getUserExpenses.reduce((a, b) => a + b.expenseAmount, 0); 
         expenses.value = salesStore.getExpensesReduced;
         finalBalance.value = totalEarned.value - salesStore.getExpensesReduced;
         isInfo.value = true;
@@ -206,17 +213,65 @@ const toggleShowDetailedInfo = () => {
     showDetailedInfo.value = !showDetailedInfo.value;
 }
 
-onMounted(() => {
-    // if(salesHistory.value.length>0) calcTotal();
-    if(salesHistory.value.length>0) {
-        // console.log('Expenses:', salesStore.getExpensesReduced);
-        // console.log('salesHistory:', salesStore.getSalesHistory);
+const pushNewBackup = ():void => {
+    // 
+    try {
+        if(salesStore.getSalesHistory.length <1) {
+            alert('Necesitas tener al menos una venta');
+            return            
+        }
+        if(salesStore.getUserExpenses.length <1){
+            console.log('Solo se pushearan los valores de sales history, no hay gastos');
+            backupSalesStore.pushNewBackupSale(salesHistory);
+            backupSalesStore.pushNewBackupExpense([{expenseReason: 'No hay gastos', expenseAmount: 0, expenseDate: moment().format('DD/MM/YY HH:mm:ss')}]);
+            console.log('History Backup:', UseBackupHistorySales().getBackupsExpensesHistory);
+            console.log('SalesStore before deletion:', salesStore.getSalesHistory);
+            salesStore.resetSalesHistory();
+            salesStore.resetUserExpenses();
+            console.log('SalesStore after deletion:', salesStore.getSalesHistory);
+            salesHistory = salesStore.getSalesHistory;
 
-        // console.log('Total Earned:', salesStore.getTotalEarned);
+            salesStore.resetTotalEarnedHistory();
+            salesStore.resetTotalEarned();
+            totalEarned.value = salesStore.getTotalEarned;
+
+            alert('code so far works');
+            router.push({name:'history'})    
+            return
+        }
+        console.log('Gastos y ventas encontrados, pusheando ambos valores al arr de backups');
+        backupSalesStore.pushNewBackupSale(salesStore.getSalesHistory);
+        backupSalesStore.pushNewBackupExpense(salesStore.getUserExpenses);
+        // backupSalesStore.pushNewBackupExpense(salesStore.getUserExpensesToBackup);
+        
+        salesStore.resetTotalEarnedHistory();
+        salesStore.resetTotalEarned();
+        totalEarned.value = salesStore.getTotalEarned;
+
+        console.log('History Backup:', UseBackupHistorySales().getBackupsExpensesHistory);
+        
+
+        console.log('SalesStore before deletion:', salesStore.getSalesHistory);
+        salesStore.resetSalesHistory();
+        salesStore.resetUserExpenses();
+        console.log('backupSalesStore after deletion:', backupSalesStore.getBackupsSalesHistory);
+        salesHistory = []
+        
+        alert('code so far works');
+        router.push({name:'history'})    
+    } catch (error) {
+        console.log('Error while trying to push backup');
+    }
+}
+// function to push all the sales value to the salesHistory array
+onMounted(() => {
+    if(salesHistory.length>0) {
         totalEarned.value = salesStore.getTotalEarned;
         expenses.value = salesStore.getExpensesReduced;
         finalBalance.value = salesStore.getTotalEarned - salesStore.getExpensesReduced;
     }
+    console.log('total gastos: ', salesStore.getUserExpenses);
+    
 })
 </script>
 

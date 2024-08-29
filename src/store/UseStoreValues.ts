@@ -131,5 +131,5 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
       this.summary = [];
     },
   },
-  persist: true,
+  // persist: true,
 }); 

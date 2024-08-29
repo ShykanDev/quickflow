@@ -22,6 +22,6 @@ export const UseUserPreferences = defineStore('UseUserPreferences',{
             this.showImages = false;
         }
     }, 
-    persist: true
+    // persist: true
 
 })

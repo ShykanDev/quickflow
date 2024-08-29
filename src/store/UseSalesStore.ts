@@ -12,6 +12,7 @@ export const UseSalesStore = defineStore('UseSalesStore', {
             totalEarnedHistory: [] as Array<INewEarn>, 
             totalEarned: 0,
             userExpenses:[]as Array<IExpense>,
+            userExpensesToBackup:[]as Array<IExpense> ,
             expenseTotal: 0,
             expensesReduced: 0,
             totalExpenses: 0
@@ -33,6 +34,9 @@ export const UseSalesStore = defineStore('UseSalesStore', {
         getUserExpenses(): Array<object>{
             return this.userExpenses;
         },
+        getUserExpensesToBackup(): Array<IExpense>{
+            return this.userExpensesToBackup;
+        }
     },
     actions:{
         addSaleHistory(newSale: ISaleHistory): void{
@@ -41,14 +45,30 @@ export const UseSalesStore = defineStore('UseSalesStore', {
         pushNewEarn(newEarn: INewEarn): void{
             this.totalEarnedHistory.unshift(newEarn);
         },
-
+        resetTotalEarned(): void{
+            this.totalEarned = 0;
+        },
+        resetTotalEarnedHistory(): void{
+            this.totalEarnedHistory = [];
+        },
         setNewExpense(newExpensesTotal: number): void{
             this.expenseTotal = newExpensesTotal;
         },
         pushUserNewExpense(newUserExpenses: IExpense): void{
             this.userExpenses.unshift(newUserExpenses);
         },
-
+        resetSalesHistory(): void{
+            this.salesHistory = [];
+        },
+        resetUserExpenses(): void{
+            this.userExpenses = [];
+        },
+        resetUserExpensesToBackup(): void{
+            this.userExpensesToBackup = [];
+        },
+        pushNewBackupExpense(newBackup:IExpense):void{
+            this.userExpensesToBackup.unshift(newBackup)
+        }
     },
-    persist: true
+    // persist: true
 })
