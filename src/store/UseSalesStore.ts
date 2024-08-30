@@ -16,7 +16,7 @@ export const UseSalesStore = defineStore('UseSalesStore', {
             expenseTotal: 0,
             expensesReduced: 0,
             totalExpenses: 0,
-            totalFinanialHistory: [] as Array<object>,
+            totalFinancialHistory: [] as Array<object>,
         }
     },
     getters:{
@@ -37,6 +37,9 @@ export const UseSalesStore = defineStore('UseSalesStore', {
         },
         getUserExpensesToBackup(): Array<IExpense>{
             return this.userExpensesToBackup;
+        },
+        getTotalFinancialHistory(): Array<object>{
+            return this.totalFinancialHistory;
         }
     },
     actions:{
@@ -69,6 +72,9 @@ export const UseSalesStore = defineStore('UseSalesStore', {
         },
         pushNewBackupExpense(newBackup:IExpense):void{
             this.userExpensesToBackup.unshift(newBackup)
+        },
+        pushNewFinancialHistory(newBackup:object):void{
+            this.totalFinancialHistory.unshift(newBackup)
         }
     },
     // persist: true

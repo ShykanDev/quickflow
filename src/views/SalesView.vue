@@ -31,7 +31,9 @@
                             </div>
                         </div>
                     </div>
-                   
+                    <div class="flex justify-end w-full pr-6 mt-9">
+                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
+                        </div>
                     <section v-if="showDetailedInfo" class="box-border py-2 mx-2 bg-white shadow-md rounded-2xl animate-fade-up">
                     <div class="flex items-center gap-2 ml-1 text-lg justify-left font-poppins">
                         <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-pay-money" scale="1.5" color="#7F1D1D" />
@@ -51,9 +53,7 @@
                             <v-icon class="cursor-pointer" @click="toggleShowAddExpense" v-if="!showAddExpense" name="md-addbox" scale="1.2" color="#075985" />
                             <v-icon class="cursor-pointer" @click="toggleShowAddExpense" v-if="showAddExpense" name="ri-checkbox-indeterminate-fill" scale="1.2" color="#075985" />
                         </div>
-                        <div class="flex justify-end w-full pr-6 mt-9">
-                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
-                        </div>
+                     
                         <section v-if="showAddExpense" class="flex flex-col items-start gap-2 animate-fade-right">
                         <h2 class="text-lg font-medium text-sky-800">Motivo</h2>
                         <input v-model="expenseReason" class="w-full border-b-[1px] border-sky-800 shadow-sm focus:outline-none" type="text" placeholder="Compré agua y gas" >
@@ -226,42 +226,42 @@ const pushNewBackup = ():void => {
             return            
         }
         if(salesStore.getUserExpenses.length <1){
-            console.log('Solo se pushearan los valores de sales history, no hay gastos');
+        
+            // push new backup of sales and expenses
             backupSalesStore.pushNewBackupSale(salesHistory);
             backupSalesStore.pushNewBackupExpense([{expenseReason: 'No hay gastos', expenseAmount: 0, expenseDate: moment().format('DD/MM/YY HH:mm:ss')}]);
+            salesStore.pushNewFinancialHistory({totalSale:totalEarned.value,totalExpenses: expenses.value, finalBalance: finalBalance.value});
+
+            // reset sales and expenses
             console.log('History Backup:', UseBackupHistorySales().getBackupsExpensesHistory);
             console.log('SalesStore before deletion:', salesStore.getSalesHistory);
             salesStore.resetSalesHistory();
             salesStore.resetUserExpenses();
             console.log('SalesStore after deletion:', salesStore.getSalesHistory);
             salesHistory = salesStore.getSalesHistory;
-
             salesStore.resetTotalEarnedHistory();
             salesStore.resetTotalEarned();
             totalEarned.value = salesStore.getTotalEarned;
 
+            // once backup is pushed, redirect to history
             alert('code so far works');
             router.push({name:'history'})    
             return
         }
-        console.log('Gastos y ventas encontrados, pusheando ambos valores al arr de backups');
+
+        // push new backup of sales and expenses
         backupSalesStore.pushNewBackupSale(salesStore.getSalesHistory);
         backupSalesStore.pushNewBackupExpense(salesStore.getUserExpenses);
-        // backupSalesStore.pushNewBackupExpense(salesStore.getUserExpensesToBackup);
-        
+        salesStore.pushNewFinancialHistory({totalSale:totalEarned.value,totalExpenses: expenses.value, finalBalance: finalBalance.value});
+        // reset sales and expenses
         salesStore.resetTotalEarnedHistory();
         salesStore.resetTotalEarned();
-        totalEarned.value = salesStore.getTotalEarned;
-
-        console.log('History Backup:', UseBackupHistorySales().getBackupsExpensesHistory);
-        
-
-        console.log('SalesStore before deletion:', salesStore.getSalesHistory);
+        totalEarned.value = salesStore.getTotalEarned;        
         salesStore.resetSalesHistory();
         salesStore.resetUserExpenses();
-        console.log('backupSalesStore after deletion:', backupSalesStore.getBackupsSalesHistory);
         salesHistory = []
-        
+    
+        //  once backup is pushed, redirect to history
         alert('code so far works');
         router.push({name:'history'})    
     } catch (error) {

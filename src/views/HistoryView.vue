@@ -10,14 +10,15 @@
                         <p>Aqui se mostrará el resumen histórico de ventas cada que se guarden los datos en el boton 'guardar' en la seccion de <RouterLink :to="{name: 'sales'}" class="text-lg font-bold underline text-sky-800">ventas</RouterLink></p>
                     </div>
                     <div v-if="salesBackups.length>0" class="flex items-center justify-around w-full my-5">
-                        <p class="py-[2px] px-[10px] text-3xl text-white bg-green-700 rounded-2xl shadow-sm" >Ventas</p>
-                        <p class="text-3xl text-white bg-red-800 rounded-2xl py-[2px] px-[10px] shadow-sm" >Gastos</p>
+                        <p class="py-[2px] px-[10px] text-3xl text-white bg-sky-700 rounded-2xl shadow-sm" >Ventas</p>
+                        <p class="text-3xl text-white bg-sky-500 rounded-2xl py-[2px] px-[10px] shadow-sm" >Gastos</p>
                     </div>
                     <section  class="flex w-full justify-evenly" >
                         <!-- Sales History -->
                         <div class="flex flex-col w-[47%]">
                             <div v-for="(arr) in salesBackups" :key="arr" class="flex flex-col gap-1 p-3 py-2 mb-4 overflow-auto bg-gray-200 shadow-md full max-h-96 min-h-96 rounded-xl" >
                                 <div class="flex flex-wrap justify-center gap-1 shadow-md bg-slate-50 rounded-xl">
+                                    <p>Total de Venta {{ totalFinancialHistory[salesBackups.indexOf(arr)]}}</p>
                                     <p class="font-medium text-sky-900">Fecha de guardado: </p>
                                     <p class="font-bold text-sky-900">{{ arr[0][0].itemDate.substring(0, 9) }}</p>
                                 </div>
@@ -67,11 +68,13 @@
 <script lang="ts" setup>
 import MainLayout from '@/layout/MainLayout.vue';
 import { UseBackupHistorySales } from '@/store/UseBackupHistorySales';
+import { UseSalesStore } from '@/store/UseSalesStore';
 import { computed, onMounted } from 'vue';
 const backupSalesHistory = UseBackupHistorySales();
-
+const salesHistory = UseSalesStore();
 let salesBackups = computed(() => backupSalesHistory.getBackupsSalesHistory);
 let backupExpenses = computed(() => backupSalesHistory.getBackupsExpensesHistory);
+let totalFinancialHistory = computed(() => salesHistory.getTotalFinancialHistory);
 // console.log('salesBackups:', salesBackups);
 
 
