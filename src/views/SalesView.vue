@@ -31,9 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-end pr-4 ">
-                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
-                        </div>
+                   
                     <section v-if="showDetailedInfo" class="box-border py-2 mx-2 bg-white shadow-md rounded-2xl animate-fade-up">
                     <div class="flex items-center gap-2 ml-1 text-lg justify-left font-poppins">
                         <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-pay-money" scale="1.5" color="#7F1D1D" />
@@ -47,13 +45,15 @@
                         <h2 v-if="showTotal" class="text-xl font-medium text-[#2B695D]">${{ finalBalance }}</h2>
                         <h2 v-if="!showTotal" class="text-xl font-medium text-[#2B695D]" >$****</h2>
                     </div>
-                    <div class="flex flex-col items-start w-9/12 gap-2 ml-5 text-lg font-poppins">
+                    <div class="flex flex-col items-start w-full gap-2 ml-5 text-lg font-poppins">
                         <div class="flex items-center gap-2">
                             <h2 class="text-lg font-medium text-sky-800">Agregar Gasto</h2>
                             <v-icon class="cursor-pointer" @click="toggleShowAddExpense" v-if="!showAddExpense" name="md-addbox" scale="1.2" color="#075985" />
                             <v-icon class="cursor-pointer" @click="toggleShowAddExpense" v-if="showAddExpense" name="ri-checkbox-indeterminate-fill" scale="1.2" color="#075985" />
                         </div>
-                       
+                        <div class="flex justify-end w-full pr-6 mt-9">
+                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
+                        </div>
                         <section v-if="showAddExpense" class="flex flex-col items-start gap-2 animate-fade-right">
                         <h2 class="text-lg font-medium text-sky-800">Motivo</h2>
                         <input v-model="expenseReason" class="w-full border-b-[1px] border-sky-800 shadow-sm focus:outline-none" type="text" placeholder="Compré agua y gas" >
@@ -69,7 +69,7 @@
                         <div>
                             <button @click="addExpense" class="p-1 text-xl text-white rounded-lg bg-sky-700 font-poppins">Añadir Gasto</button>
                         </div>
-                        
+                      
                     </section>
                     </div>
                 </section>
@@ -211,6 +211,11 @@ let showDetailedInfo = ref(false);
 // function to toggle the view of the detailed info 
 const toggleShowDetailedInfo = () => {
     showDetailedInfo.value = !showDetailedInfo.value;
+    if(showDetailedInfo.value) {
+        showTotal.value = true;
+    } else {
+        showTotal.value = false;
+    }
 }
 
 const pushNewBackup = ():void => {

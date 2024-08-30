@@ -15,7 +15,8 @@ export const UseSalesStore = defineStore('UseSalesStore', {
             userExpensesToBackup:[]as Array<IExpense> ,
             expenseTotal: 0,
             expensesReduced: 0,
-            totalExpenses: 0
+            totalExpenses: 0,
+            totalFinanialHistory: [] as Array<object>,
         }
     },
     getters:{
