@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div  class="flex items-center pl-3">
-                        <div @click="toggleShowDetailedInfo" class="flex p-1 px-2 bg-white shadow-md rounded-2xl">
+                        <div @click="toggleShowDetailedInfo" class="flex p-1 px-2 bg-white shadow-md cursor-pointer rounded-2xl">
                             <h2 class="text-lg font-medium text-sky-800">Ver Informacion detallada</h2>
                             <div class="flex items-center pl-2 text-lg justify-left font-poppins">
                                 <v-icon  v-if="!showDetailedInfo" class="cursor-pointer" name="md-expandcircledown-round" scale="1.5" color="#075985" />
@@ -31,22 +31,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-end w-full pr-6 mt-9">
-                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
-                        </div>
+                
                     <section v-if="showDetailedInfo" class="box-border py-2 mx-2 bg-white shadow-md rounded-2xl animate-fade-up">
-                    <div class="flex items-center gap-2 ml-1 text-lg justify-left font-poppins">
-                        <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-pay-money" scale="1.5" color="#7F1D1D" />
-                        <h2 class="text-lg font-medium text-red-900">Gastos:  </h2>
-                        <h2 v-if="showTotal" class="text-xl font-medium text-red-900">${{ expenses }}</h2>
-                        <h2 v-if="!showTotal" class="text-xl font-medium text-red-900" >$****</h2>
+                        <div class="flex flex-wrap items-center justify-center w-full gap-1">
+                            <div class="flex items-center gap-2 ml-1 text-lg justify-left font-poppins">
+                                <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-pay-money" scale="1.5" color="#7F1D1D" />
+                            <h2 class="text-lg font-medium text-red-900">Gastos:  </h2>
+                            <h2 v-if="showTotal" class="text-xl font-medium text-red-900">${{ expenses }}</h2>
+                            <h2 v-if="!showTotal" class="text-xl font-medium text-red-900" >$****</h2>
+                        </div>
+                        <div class="flex items-center gap-2 ml-2 text-lg justify-left font-poppins ">
+                            <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-money-stack" scale="1.5" color="#2B695D" />
+                            <h2 class="text-lg font-medium text-[#2B695D]">Balance Final:  </h2>
+                            <h2 v-if="showTotal" class="text-xl font-medium text-[#2B695D]">${{ finalBalance }}</h2>
+                            <h2 v-if="!showTotal" class="text-xl font-medium text-[#2B695D]" >$****</h2>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-2 text-lg justify-left font-poppins ">
-                        <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-money-stack" scale="1.5" color="#2B695D" />
-                        <h2 class="text-lg font-medium text-[#2B695D]">Balance Final:  </h2>
-                        <h2 v-if="showTotal" class="text-xl font-medium text-[#2B695D]">${{ finalBalance }}</h2>
-                        <h2 v-if="!showTotal" class="text-xl font-medium text-[#2B695D]" >$****</h2>
-                    </div>
+                        <PieChart v-if="showChart" :labels="['Gastos', 'Balance Final']"  :dataSet="[ expenses, finalBalance]" />
                     <div class="flex flex-col items-start w-full gap-2 ml-5 text-lg font-poppins">
                         <div class="flex items-center gap-2">
                             <h2 class="text-lg font-medium text-sky-800">Agregar Gasto</h2>
@@ -63,7 +64,7 @@
                             <input v-model="expenseAmount" class="w-full border-b-[1px] border-sky-800 shadow-sm focus:outline-none" type="number" placeholder="250"  min="0">
                         </div>
                         <div>
-                            <p v-if="isInfo" class="text-emerald-700">{{ infoMessage }}</p>
+                            <p  v-if="isInfo" class="p-1 text-xl font-medium text-white rounded-xl bg-sky-800 animate-flip-up">{{ infoMessage }}!</p>
                             <p v-if="isError" class="text-sm font-semibold text-red-700">{{ errorMessage }}!</p>
                         </div>
                         <div>
@@ -72,7 +73,10 @@
                       
                     </section>
                     </div>
-                </section>
+                    </section>
+                <div class="flex justify-end w-full pr-6 mt-9">
+                            <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
+                        </div>
                     <section  class="flex flex-wrap justify-center gap-5">
                         <div v-for="(sale,index) in salesHistory" :key="index" class="box-border relative flex flex-col items-start w-11/12 px-2 transition-transform duration-300 ease-out bg-white shadow-md tex8-black py-7 rounded-xl justify-evenly min-w-24 min-h-44 font-poppins hover:border-sky-800 hover:border hover:scale-105">
                             <div class="absolute top-1 right-1">
@@ -103,6 +107,7 @@ import { computed, onMounted, reactive, Ref, ref } from 'vue';
 import moment from 'moment';
 import { storeToRefs } from 'pinia';
 import router from '@/router';
+import PieChart from '@/components/charts/PieChart.vue';
 
 
 // sales store (pinia)
@@ -119,7 +124,8 @@ let totalEarned = ref(0);
 // dynamic value to toogle the view of the total amount
 let showTotal = ref(false);  
 
-
+// value to show the graphic pie chart
+let showChart = ref(true);
 
 //  function to toggle the showTotal variable
 const toggleShowTotal = () => showTotal.value = !showTotal.value;
@@ -172,6 +178,7 @@ const addExpense = () => {
         isError.value = false;
     }
     // value to push to salesHistory (Ej:  {expenseReason: 'Tuve que pagar la luz', expenseAmount: 250, expenseDate: 'DD/MM/YY HH:mm:ss'})
+    showChart.value = false;
     const valueToPush = reactive({
         expenseReason: expenseReason.value,
         expenseAmount: expenseAmount.value,  
@@ -194,7 +201,8 @@ const addExpense = () => {
         infoMessage.value = 'Gasto añadido correctamente';
         timeoutId = setTimeout(() => {
             isInfo.value = false;
-        }, 3500);
+            showChart.value = true;
+        }, 2000);
     } catch (error) {
         console.error('Could not add expenses',  error);
         
