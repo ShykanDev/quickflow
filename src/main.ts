@@ -4,6 +4,7 @@ import './registerServiceWorker'
 import router from './router'
 import '@/assets/index.css'
 import { createPinia } from 'pinia'
+import Chart from 'primevue/chart'; // Importa el componente de gráficos
 
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia()
@@ -16,7 +17,9 @@ addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,Bi
 
 
 const app = createApp(App)
+
 app.use(pinia)
 app.use(router)
 app.component("v-icon", OhVueIcon);
+app.component('PrimeChart', Chart);
 app.mount('#app')
