@@ -22,5 +22,6 @@ export const UseBackupHistorySales = defineStore('UseBackupHistorySales', {
         pushNewBackupExpense(newBackup:object):void{
             this.allBackupsHistoryExpenses.unshift(newBackup)
         }
-    }
+    },
+    persist: true
 })

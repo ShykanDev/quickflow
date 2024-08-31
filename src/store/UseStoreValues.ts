@@ -8,85 +8,100 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
     return {
       totalItems: [
         {
+          itemName: "Queso Extra",
+          itemPrice: 10,
+          itemImage: require("@/assets/img/items/quesito.png"),
+          itemDescription:[]
+        },
+        {
           itemName: "Tacos",
           itemPrice: 30,
           itemImage: require("../assets/img/items/taquito.png"),
-          itemDescription: ["Tacos de Mariscos"],
+          itemDescription: ['Maciza', 'Costilla con hueso', 'Falda de Costilla', 'Chamorro','Buche', 'Nana', 'Trompa', 'Oreja', 'Cachete', 'Lengua', 'Surtida', 'Cuero delgado', 'Cuero con Panza' ],
         },
         {
           itemName: "Gorditas Carnitas",
           itemPrice: 40,
           itemImage: require("@/assets/img/items/gorditaChicharron.png"),
+          itemDescription:[]
         },
         {
           itemName: "Tortas",
           itemPrice: 35,
           itemImage: require("@/assets/img/items/tortasimple.png"),
+          itemDescription:[]
         },
         {
           itemName: "Tortas Carnitas",
           itemPrice: 40,
           itemImage: require("@/assets/img/items/torta.png"),
+          itemDescription:[]
         },
         {
           itemName: "Quesadillas",
           itemPrice: 30,
           itemImage: require("@/assets/img/items/quesadillaSimple.png"),
+          itemDescription:['Hongos', 'Chicharron', 'Pollo', 'Queso']
         },
         {
           itemName: "Quesadillas Carnitas",
           itemPrice: 40,
-          itemImage: require("@/assets/img/items/quesadillaCarnitas.png"),
+          itemImage: require("@/assets/img/items/carnitasQuesadilla.png"),
+          itemDescription:[]
         },
         {
           itemName: "Gorditas",
           itemPrice: 35,
           itemImage: require("@/assets/img/items/gorditas-min.png"),
-        },
-        {
-          itemName: "Chamorro Por Pieza",
-          itemPrice: 150,
-          itemImage: require("@/assets/img/items/chamorro.jpg"),
-        },
-        {
-          itemName: "Tacos De Bistec",
-          itemPrice: 30,
-          itemImage: require("@/assets/img/items/bistecTacos.png"),
-        },
-        {
-          itemName: "Gorditas Chicharron Con Carnitas",
-          itemPrice: 30,
-          itemImage: require("@/assets/img/items/gorditasChicharronCarnitas.png"),
-        },
-        {
-          itemName: "Quesadillas",
-          itemPrice: 30,
-          itemImage: require("@/assets/img/items/quesadillas.png"),
-        },
-        {
-          itemName: "Quesadilla de Carnitas",
-          itemPrice: 30,
-          itemImage: require("@/assets/img/items/peso.png"),
+          itemDescription:[]
         },
         {
           itemName: "Refrescos Vidrio",
           itemPrice: 25,
           itemImage: require("@/assets/img/items/vidrio-min.png"),
+          itemDescription:[]
         },
         {
           itemName: "Refrescos Desechable",
           itemPrice: 27,
           itemImage: require("@/assets/img/items/desechables-min.png"),
+          itemDescription:[]
         },
         {
-          itemName: "Queso Extra",
-          itemPrice: 10,
-          itemImage: require("@/assets/img/items/oaxaca.png"),
+          itemName: "Chamorro Por Pieza",
+          itemPrice: 150,
+          itemImage: require("@/assets/img/items/chamorro.jpg"),
+          itemDescription:[]
         },
         {
-          itemName: "Por Kilo",
+          itemName: "Tacos De Bistec",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/bistecTacos.png"),
+          itemDescription:[]
+        },
+        {
+          itemName: "Gorditas Chicharron Con Carnitas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/gorditasChicharronCarnitas.png"),
+          itemDescription:[]
+        },
+        {
+          itemName: "Kilo",
           itemPrice: 400,
           itemImage: require("@/assets/img/items/peso.png"),
+          itemDescription:[]
+        },
+        {
+          itemName: "Medio Kilo",
+          itemPrice: 200,
+          itemImage: require("@/assets/img/items/peso.png"),
+          itemDescription:[]
+        },
+        {
+          itemName: "Cuarto de Kilo",
+          itemPrice: 100,
+          itemImage: require("@/assets/img/items/peso.png"),
+          itemDescription:[]
         },
       ] as Array<IItem>,
       grandTotal: 0,
@@ -131,5 +146,5 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
       this.summary = [];
     },
   },
-  // persist: true,
+  persist: true,
 }); 

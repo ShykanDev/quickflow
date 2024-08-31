@@ -2,9 +2,13 @@
     <div class="">
         <!-- header content -->
          <div class="fixed top-0 left-0 right-0 z-50 ">
+            <!-- <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12"> -->
             <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12">
                 <div class="absolute left-2">
-                    <v-icon  name="gi-pig" scale="1.7" color="#075985" />
+                    <v-icon name="gi-pig" @click="easterEggPig"  scale="1.7" color="#075985" />
+                </div>
+                <div v-if="showEasterEgg" class="absolute p-1 bg-white border rounded-tr-lg rounded-bl-lg rounded-br-lg shadow-2xl select-none text-sky-800 -bottom-2 left-10 border-sky-800">
+                    <p>{{ easterMessage }}</p>
                 </div>
                 <h1 class="p-1 text-xl font-medium select-none font-poppins text-sky-800" >Carnitas Estilo Michoacán</h1>
                 <div class="absolute right-2">
@@ -62,6 +66,7 @@
 <script lang="ts" setup>
 import HamMenuAnimated from '@/components/home/HamMenuAnimated.vue';
 import ToggleSwitch from '@/components/settings/ToggleSwitch.vue';
+import { UseEasterEggs } from '@/store/UseEasterEggs';
 import { UseUserPreferences } from '@/store/UseUserPreferences';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -82,6 +87,19 @@ const togglePhotos = ():void => {
     
 }
 
+
+// Easter egg to show a message
+let easterMessage = ref('');
+let showEasterEgg = ref(false);
+let timeoutEaster = null;
+const easterEggPig = () => {
+    if(timeoutEaster) clearTimeout(timeoutEaster);
+    showEasterEgg.value = true;
+    easterMessage.value = 'oink!';
+    timeoutEaster = setTimeout(() => {
+        showEasterEgg.value = false;
+    }, 1000);
+}
 onMounted(() => {
     savePhotos.value = savedPhotos.value;
 });

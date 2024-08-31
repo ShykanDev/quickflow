@@ -5,11 +5,11 @@
                 <div class="fixed top-0 bottom-0 left-0 right-0 bg-slate-100 -z-20">
                 </div>
                 <div class="flex flex-col items-center animate-fade-up">
-                    <h1 class="pt-2 text-2xl font-medium text-sky-800 font-poppins">Historial De Ventas</h1>
-                    <div class="flex items-center gap-1 pb-5">
+                    <!-- <div class="flex flex-col items-center gap-1 pb-5">
+                        <h1 class="pt-2 text-2xl font-medium text-sky-800 font-poppins">Historial De Ventas</h1>
                         <p>Aqui se mostrará el resumen histórico de ventas cada que se guarden los datos en el boton 'guardar' en la seccion de <RouterLink :to="{name: 'sales'}" class="text-lg font-bold underline text-sky-800">ventas</RouterLink></p>
-                    </div>
-                    <div v-if="salesBackups.length>0" class="flex items-center justify-around w-full my-5">
+                    </div> -->
+                    <div v-if="salesBackups.length>0" class="flex items-center justify-around w-full my-2">
                         <p  class="py-[2px] px-[10px] text-2xl text-white bg-sky-700 rounded-xl shadow-sm" >Ventas</p>
                         <div>
                             <p @click="toggleShowExpenses" v-if="!showExpenses" class="py-[2px] cursor-pointer px-[10px] text-2xl text-white bg-gray-600 rounded-xl shadow-sm" >Ver Gastos</p>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div v-for="(elm) in arr" :key="elm" class="px-3 py-2 shadow-md bg-slate-50 rounded-xl">
                                     <div v-for="(item) in elm" :key="item"  class="flex flex-wrap">
-                                        <p v-if="item.itemName" class="text-sky-700">{{ item.itemAmount }} {{ item.itemName }} de ${{ item.itemPrice }}</p>
+                                        <p v-if="item.itemName" class="font-medium text-sky-700">{{ item.itemAmount }} {{ item.itemName }} de ${{ item.itemPrice }}</p>
                                         <div class="flex flex-wrap justify-center w-full gap-1">
                                             <p v-if="item.grandTotal" class="font-medium text-sky-900">Total en esta venta:</p>
                                             <p v-if="item.grandTotal" class="font-bold text-sky-900">${{ item.grandTotal }}</p>
@@ -57,19 +57,19 @@
                         <!-- Expenses History -->
                         <div v-if="showExpenses" class="min-w-[42%] ">
                             <!-- TO FIX: when user clicks on add expense button, button pushes an array, that's causing errors while trying to iterate through it, need to fix by changing the method to push from an array to an object (when user clicks on add expense button it should push an object instead of an array) -->
-                            <div v-for="(item) in backupExpenses" :key="item" class="flex flex-col gap-1 p-3 py-2 mb-4 overflow-auto bg-gray-200 shadow-md full max-h-96 min-h-96 rounded-xl">
-                                <div class="flex flex-wrap justify-center gap-1 shadow-md bg-slate-50 rounded-xl">
-                                    <p class="font-medium text-sky-900">Fecha de guardado:</p>
-                                    <p class="font-bold text-sky-900">{{ item[0].expenseDate.substring(0, 9) }}</p>
+                            <div v-for="(item) in backupExpenses" :key="item" class="flex flex-col gap-1 p-3 py-2 mb-4 overflow-auto bg-gray-100 shadow-md full max-h-96 min-h-96 rounded-xl">
+                                <div class="flex flex-wrap justify-center gap-1 text-white shadow-md bg-sky-800 rounded-xl">
+                                    <p class="font-medium ">Fecha de guardado:</p>
+                                    <p class="font-bold">{{ item[0].expenseDate.substring(0, 9) }}</p>
                                 </div>
                                 <div v-for="(elm) in item" :key="elm">
                                     <div class="flex flex-col justify-start gap-1 p-1 mb-1 bg-white shadow-md rounded-xl">
                                         <div class="flex flex-wrap gap-1">
-                                            <p class="text-base text-sky-900 ">Motivo:</p>
+                                            <p class="text-base font-medium text-sky-900">Motivo:</p>
                                             <p class="text-base font-semibold text-sky-900">'{{ elm.expenseReason }}' </p>
                                         </div>
                                         <div class="flex flex-wrap gap-1">
-                                            <p class="text-base font-base text-sky-900"> Gasto:</p>
+                                            <p class="text-base font-medium text-sky-900"> Gasto:</p>
                                             <p class="text-base font-semibold text-sky-900"> ${{ elm.expenseAmount }}</p>
                                         </div>
                                     </div>

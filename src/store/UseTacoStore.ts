@@ -23,5 +23,5 @@ export const UseTacoStore = defineStore('UseTacoStore', {
             this.tacosPrice = newTacosPrice;
         }
     },
-    // persist: true
+    persist: true
 })

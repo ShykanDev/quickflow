@@ -6,6 +6,23 @@
             <div class="flex flex-col items-center w-full gap-2 font-poppins">
             <label class="text-2xl font-semibold select-none user-select-none text-sky-800" for="">${{
                 props.itemPrice }}</label>
+                <div @click="toggleShowDesciption" v-if="props.itemDescription.length>=1" class="flex items-center justify-center w-full gap-1 cursor-pointer">
+                    <p v-if="!showDescription" class="font-medium select-none text-md user-select-none">Ver más</p>
+                    <p v-if="showDescription" class="font-medium select-none text-md user-select-none">Ver menos</p>
+                    <v-icon v-if="!showDescription" name="md-expandcircledown-round" scale="1.5" color="#075985" />
+                    <v-icon v-if="showDescription" name="md-expandcircledown-round" scale="1.5" color="#075985" flip="vertical"/>
+                </div>
+                <div v-if="props.itemDescription.length>=1 && showDescription" class="box-border flex flex-col items-start justify-start w-full p-2 overflow-auto shadow-sm rounded-xl animate-fade-up">
+                    <div v-for="(descrip) in props.itemDescription" :key="descrip" class="flex items-center gap-2 ">
+                        <v-icon name="bi-dot" scale="1.5" color="#075985" />
+                        <p  class="font-medium text-sky-800">{{ descrip }}</p>
+                    </div>
+                    <!-- <ul class="list-inside" >
+                        <li v-for="(descrip) in props.itemDescription" :key="descrip" class="flex items-center gap-2 font-medium text-sky-800">
+                            {{ descrip }}
+                        </li>
+                    </ul> -->
+                </div>
             <label class="font-medium select-none text-md user-select-none"
                 for="">Cantidad</label>
             <div class="relative flex items-center w-full mb-6 justify-evenly">
@@ -43,6 +60,11 @@ const props = defineProps({
     itemPrice: {
     type:Number,
     required:true,
+    },
+    itemDescription:{
+        type:String,
+        required:false,
+        default:""
     },
     saveValues:Boolean
 })
@@ -91,6 +113,14 @@ watch(subtotal,(newVal, oldVal)=>{
     UseUserStoreValues().updateGrandTotal(newVal - oldVal);
 })  
 
+
+
+// function to toggle list of products for items that have description
+let showDescription = ref(false)
+const toggleShowDesciption = ()=> {
+    showDescription.value = !showDescription.value;  
+    console.log('showDescription:', showDescription.value);
+}
 </script>
 
 <style scoped></style>

@@ -1,6 +1,7 @@
 interface IItem {
     itemName:string,
     itemPrice:number,
-    itemImage:string
+    itemImage:string,
+    itemDescription?:Array<string>,
 }
 export default IItem;

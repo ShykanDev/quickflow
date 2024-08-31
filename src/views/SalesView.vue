@@ -252,7 +252,6 @@ const pushNewBackup = ():void => {
             totalEarned.value = salesStore.getTotalEarned;
 
             // once backup is pushed, redirect to history
-            alert('code so far works');
             router.push({name:'history'})    
             return
         }
@@ -270,7 +269,6 @@ const pushNewBackup = ():void => {
         salesHistory = []
     
         //  once backup is pushed, redirect to history
-        alert('code so far works');
         router.push({name:'history'})    
     } catch (error) {
         console.log('Error while trying to push backup');

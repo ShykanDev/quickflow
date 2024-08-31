@@ -10,7 +10,7 @@
           <!-- Loop through each item in the 'items' array and pass properties to the 'ItemCard' component -->
           <div v-for="(item, index) in items" :key="index" class="">
             <ItemCard :item-img="item.itemImage" :item-name="item.itemName" :item-price="item.itemPrice"
-              :save-values="saveValues" />
+              :save-values="saveValues" :item-description="item.itemDescription" />
           </div>
         </section>
         <!-- Sidebar background overlay with a fade-in transition -->
@@ -58,9 +58,9 @@
 
         <!-- Grand total button that appears when the sidebar is closed -->
         <Transition>
-          <div class="fixed left-0 right-0 z-50 flex justify-between px-2 bottom-3">
-            <GrandTotal v-if="!isSideBarOpened" class="" />
-          </div>
+          <!-- <div class="fixed left-0 right-0 z-50 flex justify-between px-2 bg-red-700 bottom-3"> -->
+            <GrandTotal v-if="!isSideBarOpened" class="fixed bottom-3 left-3" />
+          <!-- </div> -->
         </Transition>
       </template>
     </MainLayout>
