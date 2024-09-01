@@ -5,10 +5,7 @@
             <!-- <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12"> -->
             <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12">
                 <div class="absolute left-2">
-                    <v-icon :class="{'animate-bounce': showEasterEgg}" name="gi-pig" @click="easterEggPig"  scale="1.7" color="#075985" />
-                </div>
-                <div v-if="showEasterEgg" class="absolute p-1 bg-white border rounded-tr-lg rounded-bl-lg rounded-br-lg shadow-2xl select-none animate-fade-down text-sky-800 -bottom-2 left-10 border-sky-800">
-                    <p>{{ easterMessage }}</p>
+                    <v-icon :class="{'animate-bounce': showEasterEgg, 'text-[#F88C8C]': showEasterEgg, 'text-sky-800': !showEasterEgg} " name="gi-pig" @click="easterEggPig"  scale="1.7" />
                 </div>
                 <h1 class="p-1 text-xl font-medium select-none font-poppins text-sky-800" >Carnitas Estilo Michoacán</h1>
                 <div class="absolute right-2">
@@ -18,11 +15,15 @@
             </div>
          </div>
          <!-- main content -->
-          <div class="pt-12">
+          <div class="relative pt-12">
             <!-- main sidebar -->
              <Transition>
                  <section v-if="isMainSideBarOpened" class="fixed top-0 bottom-0 left-0 right-0 z-40 transition-all duration-500 bg-sky-950 bg-opacity-70 animate-ease-out" />
             </Transition>
+            <!-- Easter egg to show a message -->
+             <div v-if="showEasterEgg" class="fixed z-50 flex justify-center w-full top-9" >
+                <p class="w-9/12 p-1 font-medium bg-white border rounded-tl-none rounded-xl text-sky-800 border-sky-900">{{ easterMessage }}</p>
+             </div>
             <div  :class="{'translate-x-full': !isMainSideBarOpened, 'translate-x-0': isMainSideBarOpened }" class="fixed bottom-0 right-0 z-40 flex flex-col items-center gap-1 p-1 pt-5 transition-all duration-300 ease-out shadow-xl right-0-0 font-poppins text-sky-950 bg-slate-50 top-8">  
                 <RouterLink :to="{name: 'home'}"  class="flex items-center w-full gap-2 text-lg font-medium bg-white rounded-lg shadow-sm ">
                     <v-icon name="hi-solid-home" scale="1.5" color="#075985"/>

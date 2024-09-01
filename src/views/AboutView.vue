@@ -6,5 +6,6 @@ import PieChart from '@/components/charts/PieChart.vue';
   <div class="about">
     <h1>This is an about page</h1>
     <PieChart />
+
   </div>
 </template>

@@ -5,7 +5,6 @@ import router from './router'
 import '@/assets/index.css'
 import { createPinia } from 'pinia'
 import Chart from 'primevue/chart'; // Importa el componente de gráficos
-
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
