@@ -5,10 +5,10 @@
                 <div class="fixed top-0 bottom-0 left-0 right-0 bg-slate-100 -z-20">
                 </div>
                 <div class="flex flex-col items-center animate-fade-up">
-                    <!-- <div class="flex flex-col items-center gap-1 pb-5">
+                    <div v-if="salesBackups.length<1" class="flex flex-col items-center gap-1 pb-5">
                         <h1 class="pt-2 text-2xl font-medium text-sky-800 font-poppins">Historial De Ventas</h1>
                         <p>Aqui se mostrará el resumen histórico de ventas cada que se guarden los datos en el boton 'guardar' en la seccion de <RouterLink :to="{name: 'sales'}" class="text-lg font-bold underline text-sky-800">ventas</RouterLink></p>
-                    </div> -->
+                    </div>
                     <div v-if="salesBackups.length>0" class="flex items-center justify-around w-full my-2">
                         <p  class="py-[2px] px-[10px] text-2xl text-white bg-sky-700 rounded-xl shadow-sm" >Ventas</p>
                         <div>

@@ -5,9 +5,9 @@
             <!-- <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12"> -->
             <div class="relative flex items-center justify-center p-1 bg-white rounded-b-lg shadow-md font-poppins min-h-12">
                 <div class="absolute left-2">
-                    <v-icon name="gi-pig" @click="easterEggPig"  scale="1.7" color="#075985" />
+                    <v-icon :class="{'animate-bounce': showEasterEgg}" name="gi-pig" @click="easterEggPig"  scale="1.7" color="#075985" />
                 </div>
-                <div v-if="showEasterEgg" class="absolute p-1 bg-white border rounded-tr-lg rounded-bl-lg rounded-br-lg shadow-2xl select-none text-sky-800 -bottom-2 left-10 border-sky-800">
+                <div v-if="showEasterEgg" class="absolute p-1 bg-white border rounded-tr-lg rounded-bl-lg rounded-br-lg shadow-2xl select-none animate-fade-down text-sky-800 -bottom-2 left-10 border-sky-800">
                     <p>{{ easterMessage }}</p>
                 </div>
                 <h1 class="p-1 text-xl font-medium select-none font-poppins text-sky-800" >Carnitas Estilo Michoacán</h1>
@@ -88,17 +88,20 @@ const togglePhotos = ():void => {
 }
 
 
+
 // Easter egg to show a message
+const userEasterEggs = UseEasterEggs();
 let easterMessage = ref('');
 let showEasterEgg = ref(false);
 let timeoutEaster = null;
 const easterEggPig = () => {
     if(timeoutEaster) clearTimeout(timeoutEaster);
     showEasterEgg.value = true;
-    easterMessage.value = 'oink!';
+    let aleatNum = Math.floor(Math.random() * userEasterEggs.getPigEasterEggs.length);
+    easterMessage.value = userEasterEggs.getPigEasterEggs[aleatNum];
     timeoutEaster = setTimeout(() => {
         showEasterEgg.value = false;
-    }, 1000);
+    }, 5200);
 }
 onMounted(() => {
     savePhotos.value = savedPhotos.value;

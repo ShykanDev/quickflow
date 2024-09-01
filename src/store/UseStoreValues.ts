@@ -1,6 +1,5 @@
 import IItem from "@/interface/IItem";
 import ISummary from "@/interface/ISummary";
-import { IoReturnUpBack } from "oh-vue-icons/icons";
 import { defineStore } from "pinia";
 
 export const UseUserStoreValues = defineStore("UseStoreValues", {
@@ -20,9 +19,21 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
           itemDescription: ['Maciza', 'Costilla con hueso', 'Falda de Costilla', 'Chamorro','Buche', 'Nana', 'Trompa', 'Oreja', 'Cachete', 'Lengua', 'Surtida', 'Cuero delgado', 'Cuero con Panza' ],
         },
         {
+          itemName: "Gorditas",
+          itemPrice: 35,
+          itemImage: require("@/assets/img/items/gorditas-min.png"),
+          itemDescription:[]
+        },
+        {
           itemName: "Gorditas Carnitas",
           itemPrice: 40,
           itemImage: require("@/assets/img/items/gorditaChicharron.png"),
+          itemDescription:[]
+        },
+        {
+          itemName: "Gorditas Chicharron Con Carnitas",
+          itemPrice: 30,
+          itemImage: require("@/assets/img/items/gorditasChicharronCarnitas.png"),
           itemDescription:[]
         },
         {
@@ -33,7 +44,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
         },
         {
           itemName: "Tortas Carnitas",
-          itemPrice: 40,
+          itemPrice: 35,
           itemImage: require("@/assets/img/items/torta.png"),
           itemDescription:[]
         },
@@ -47,12 +58,6 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
           itemName: "Quesadillas Carnitas",
           itemPrice: 40,
           itemImage: require("@/assets/img/items/carnitasQuesadilla.png"),
-          itemDescription:[]
-        },
-        {
-          itemName: "Gorditas",
-          itemPrice: 35,
-          itemImage: require("@/assets/img/items/gorditas-min.png"),
           itemDescription:[]
         },
         {
@@ -80,25 +85,19 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
           itemDescription:[]
         },
         {
-          itemName: "Gorditas Chicharron Con Carnitas",
-          itemPrice: 30,
-          itemImage: require("@/assets/img/items/gorditasChicharronCarnitas.png"),
-          itemDescription:[]
-        },
-        {
-          itemName: "Kilo",
+          itemName: "Kilo (1Kg)",
           itemPrice: 400,
           itemImage: require("@/assets/img/items/peso.png"),
           itemDescription:[]
         },
         {
-          itemName: "Medio Kilo",
+          itemName: "Medio Kilo (1/2Kg)",
           itemPrice: 200,
           itemImage: require("@/assets/img/items/peso.png"),
           itemDescription:[]
         },
         {
-          itemName: "Cuarto de Kilo",
+          itemName: "Cuarto de Kilo (1/4Kg)",
           itemPrice: 100,
           itemImage: require("@/assets/img/items/peso.png"),
           itemDescription:[]
@@ -146,5 +145,5 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
       this.summary = [];
     },
   },
-  persist: true,
+  // persist: true,
 }); 
