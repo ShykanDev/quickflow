@@ -1,6 +1,7 @@
 {
   "name": "Pigcontrol",
   "short_name": "Pigcontrol",
+  "ms_tile_color": "#FFFFFF",
   "theme_color": "#FCFCFC",
   "icons": [
     {
