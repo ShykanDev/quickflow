@@ -48,7 +48,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
           itemDescription:[]
         },
         {
-          itemName: "Gorditas",
+          itemName: "Gorditas Chicharron",
           itemPrice: 35,
           itemImage: require("@/assets/img/items/gorditas-min.png"),
           itemDescription:[]
@@ -56,7 +56,7 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
        
         {
           itemName: "Gorditas Chicharron Con Carnitas",
-          itemPrice: 30,
+          itemPrice: 65,
           itemImage: require("@/assets/img/items/gorditasChicharronCarnitas.png"),
           itemDescription:[]
         },
@@ -146,5 +146,5 @@ export const UseUserStoreValues = defineStore("UseStoreValues", {
       this.summary = [];
     },
   },
-  // persist: true,
+  persist: true,
 }); 

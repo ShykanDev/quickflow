@@ -27,10 +27,10 @@
                                         <p class="font-bold text-sky-900">{{ arr[0][0].itemDate.substring(0, 9) }}</p>
                                     </div>
 
-                                    <div class="flex flex-wrap gap-3">
-                                        <p class="font-bold text-sky-700">Ingresos Netos: ${{ totalFinancialHistory[salesBackups.indexOf(arr)].totalSale}}</p>
-                                        <p class="font-bold text-red-600">Gastos: ${{ totalFinancialHistory[salesBackups.indexOf(arr)].totalExpenses}}</p>
-                                        <p class="font-bold text-green-800">Balance: $ {{ totalFinancialHistory[salesBackups.indexOf(arr)].finalBalance}}</p>
+                                    <div class="flex flex-col items-center gap-1">
+                                        <p class="p-1 font-bold text-white rounded-md bg-sky-700">Ingresos Netos: ${{ totalFinancialHistory[salesBackups.indexOf(arr)].totalSale}}</p>
+                                        <p class="p-1 font-bold text-white bg-red-600 rounded-md">Gastos: ${{ totalFinancialHistory[salesBackups.indexOf(arr)].totalExpenses}}</p>
+                                        <p class="p-1 font-bold text-white bg-green-800 rounded-md">Balance: $ {{ totalFinancialHistory[salesBackups.indexOf(arr)].finalBalance}}</p>
                                     </div>
                                         
                                     <PieChart  :dataSet="[
@@ -44,11 +44,14 @@
                                     <p class="text-base font-bold text-sky-900">{{ arr.length }} ventas</p>
                                 </div>
                                 <div v-for="(elm) in arr" :key="elm" class="px-3 py-2 shadow-md bg-slate-50 rounded-xl">
+                                    <p class="font-medium text-sky-900 ">Total en esta venta:</p>
+                                    <p class="inline-block p-1 mb-2 font-bold text-white shadow-md bg-sky-800 rounded-xl">${{elm.find((x) => x.itemDate).grandTotal}}</p>
                                     <div v-for="(item) in elm" :key="item"  class="flex flex-wrap">
-                                        <p v-if="item.itemName" class="font-medium text-sky-700">{{ item.itemAmount }} {{ item.itemName }} de ${{ item.itemPrice }}</p>
-                                        <div class="flex flex-wrap justify-center w-full gap-1">
-                                            <p v-if="item.grandTotal" class="font-medium text-sky-900">Total en esta venta:</p>
-                                            <p v-if="item.grandTotal" class="font-bold text-sky-900">${{ item.grandTotal }}</p>
+                                        <p v-if="item.itemName && item.itemName !== 'Otros'" class="inline-block p-1 mb-1 font-bold transition-transform bg-white shadow-md cursor-pointer text-sky-900 rounded-xl hover:scale-105 hover:border hover:border-sky-900">{{ item.itemAmount }} {{ item.itemName }} de ${{ item.itemPrice }}  (${{ item.itemSubtotal }})</p>
+                                        <p v-if="item.itemName && item.itemName === 'Otros'" class="inline-block p-1 mb-1 font-bold bg-white shadow-md text-sky-900 rounded-xl hover:scale-105 hover:border hover:border-sky-900-"> {{ item.itemName }}   (${{ item.itemSubtotal }})</p>
+                                        <div v-if="item.grandTotal" class="flex flex-wrap justify-center w-full gap-1">
+                                            <!-- <p v-if="item.grandTotal" class="font-medium text-sky-900">Total en esta venta:</p> -->
+                                            <!-- <p v-if="item.grandTotal"  class="font-bold text-sky-900">${{ item.grandTotal }}</p> -->
                                         </div>
                                     </div>
                                 </div>

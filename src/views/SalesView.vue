@@ -4,7 +4,7 @@
             <template #main>
                 <div class="fixed top-0 bottom-0 left-0 right-0 bg-slate-100 -z-20">
                 </div>
-                <div class="flex flex-col gap-4 min-h-dvh pb-9 animate-fade-down">
+                <div class="flex flex-col w-full gap-4 min-h-dvh pb-9 animate-fade-down">
                     <h1 class="text-3xl font-medium font-poppins text-sky-800">Ventas</h1>
                     <RouterLink :to="{name:'home'}" class="flex items-center gap-2 p-1 ml-3 bg-white shadow-md animate-delay-200 animate-fade-down min-w-32 text-sky-800 rounded-2xl max-w-44">
                         <v-icon name="hi-solid-home" color="#246D93" scale="1.6" />
@@ -12,11 +12,11 @@
                     </RouterLink>
                     <div class="flex items-center pl-3">
                         <div  class="flex p-1 bg-white shadow-md rounded-2xl">
-                            <v-icon class="pr-1 bg-white cursor-pointer rounded-l-3xl"  name="gi-receive-money" scale="1.5" color="#2B695D" />
-                            <h2 class="text-lg font-medium text-[#2B695D]">Ingresos Netos: </h2>
+                            <v-icon class="pr-1 bg-white cursor-pointer rounded-l-3xl"  name="gi-receive-money" scale="1.5" color="#246D93" />
+                            <h2 class="text-lg font-medium text-sky-800">Ingresos Netos: </h2>
                             <div class="flex items-center pl-2 text-lg font-medium justify-left font-poppins">
-                                <h2 v-if="showTotal" class="pr-2 text-xl   text-[#2B695D]">${{ totalEarned }}</h2>
-                                <h2 v-if="!showTotal" class="pr-2 text-xl text-[#2B695D]" >$****</h2>
+                                <h2 v-if="showTotal" class="pr-2 text-xl text-sky-800">${{ totalEarned }}</h2>
+                                <h2 v-if="!showTotal" class="pr-2 text-xl text-sky-800" >$****</h2>
                                 <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="showTotal" name="io-eye-off-sharp" scale="1.5" color="#075985" />
                                 <v-icon class="cursor-pointer" @click="toggleShowTotal" v-if="!showTotal" name="io-eye-sharp" scale="1.5" color="#075985" />
                             </div>
@@ -31,20 +31,20 @@
                             </div>
                         </div>
                     </div>
-                
-                    <section v-if="showDetailedInfo" class="box-border py-2 mx-2 bg-white shadow-md rounded-2xl animate-fade-up">
+                <div class="flex justify-center w-dvw ">
+                    <section v-if="showDetailedInfo" class="box-border w-full py-2 bg-white shadow-md rounded-2xl animate-fade-up ">
                         <div class="flex flex-wrap items-center justify-center w-full gap-1">
-                            <div class="flex items-center gap-2 ml-1 text-lg justify-left font-poppins">
-                                <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-pay-money" scale="1.5" color="#7F1D1D" />
-                            <h2 class="text-lg font-medium text-red-900">Gastos:  </h2>
-                            <h2 v-if="showTotal" class="text-xl font-medium text-red-900">${{ expenses }}</h2>
-                            <h2 v-if="!showTotal" class="text-xl font-medium text-red-900" >$****</h2>
+                            <div class="flex items-center gap-2 px-1 ml-1 text-lg text-white bg-red-800 rounded-2xl justify-left font-poppins">
+                                <v-icon class="cursor-pointer "  name="gi-pay-money" scale="1.5" color="white" />
+                            <h2 class="text-lg font-medium text-white">Gastos:  </h2>
+                            <h2 v-if="showTotal" class="text-xl font-medium ">${{ expenses }}</h2>
+                            <h2 v-if="!showTotal" class="text-xl font-medium " >$****</h2>
                         </div>
-                        <div class="flex items-center gap-2 ml-2 text-lg justify-left font-poppins ">
-                            <v-icon class="bg-white cursor-pointer rounded-l-3xl"  name="gi-money-stack" scale="1.5" color="#2B695D" />
-                            <h2 class="text-lg font-medium text-[#2B695D]">Balance Final:  </h2>
-                            <h2 v-if="showTotal" class="text-xl font-medium text-[#2B695D]">${{ finalBalance }}</h2>
-                            <h2 v-if="!showTotal" class="text-xl font-medium text-[#2B695D]" >$****</h2>
+                        <div class="flex items-center gap-2 ml-2 text-lg justify-left font-poppins text-white bg-[#3EB489] rounded-2xl px-1">
+                            <v-icon class="cursor-pointer "  name="gi-money-stack" scale="1.5" color="white" />
+                            <h2 class="text-lg font-medium">Balance Final:  </h2>
+                            <h2 v-if="showTotal" class="text-xl font-medium">${{ finalBalance }}</h2>
+                            <h2 v-if="!showTotal" class="text-xl font-medium" >$****</h2>
                         </div>
                     </div>
                         <PieChart v-if="showChart" :labels="['Gastos', 'Balance Final']"  :dataSet="[ expenses, finalBalance]" />
@@ -64,7 +64,7 @@
                             <input v-model="expenseAmount" class="w-full border-b-[1px] border-sky-800 shadow-sm focus:outline-none" type="number" placeholder="250"  min="0">
                         </div>
                         <div>
-                            <p  v-if="isInfo" class="p-1 text-xl font-medium text-white rounded-xl bg-sky-800 animate-flip-up">{{ infoMessage }}!</p>
+                            <p  v-if="isInfo" class="px-1 text-xl font-medium text-white rounded-xl bg-sky-700 animate-jump">{{ infoMessage }}!</p>
                             <p v-if="isError" class="text-sm font-semibold text-red-700">{{ errorMessage }}!</p>
                         </div>
                         <div>
@@ -74,6 +74,7 @@
                     </section>
                     </div>
                     </section>
+                </div>
                 <div class="flex justify-end w-full pr-6 mt-9">
                             <button @click="pushNewBackup" class="p-1 text-sm text-white rounded-lg bg-sky-700 font-poppins min-w-48">Guardar y Reestablecer Datos</button>
                         </div>
@@ -84,8 +85,13 @@
                             </div>
                             <div v-for="(item,index) in sale" :key="index" class="flex items-center justify-center w-full">
                                 <!-- <p v-if="item.itemName" class="text-lg font-medium" >{{item.itemAmount}} {{ item.itemName }} ${{ item.itemSubtotal }}</p> -->
-                                 <div class="flex flex-wrap items-center justify-start w-full gap-1">
+                                 <div v-if="item.itemName && item.itemName !== 'Otros'" class="flex flex-wrap items-center justify-start w-full gap-1">
                                     <p class="text-lg font-medium text-sky-700" v-if="item.itemAmount">{{ item.itemAmount }}</p>
+                                    <p class="text-lg font-medium text-sky-700" v-if="item.itemName">{{ item.itemName }}</p>
+                                    <p class="text-lg font-medium underline text-sky-900" v-if="item.itemSubtotal">${{ item.itemSubtotal}}</p>
+                                 </div>
+                                 <div v-if="item.itemName && item.itemName === 'Otros'" class="flex flex-wrap items-center justify-start w-full gap-1">
+                                    <!-- <p class="text-lg font-medium text-sky-700" v-if="item.itemAmount">{{ item.itemAmount }}</p> -->
                                     <p class="text-lg font-medium text-sky-700" v-if="item.itemName">{{ item.itemName }}</p>
                                     <p class="text-lg font-medium underline text-sky-900" v-if="item.itemSubtotal">${{ item.itemSubtotal}}</p>
                                  </div>
@@ -198,7 +204,7 @@ const addExpense = () => {
         expenses.value = salesStore.getExpensesReduced;
         finalBalance.value = totalEarned.value - salesStore.getExpensesReduced;
         isInfo.value = true;
-        infoMessage.value = 'Gasto añadido correctamente';
+        infoMessage.value = 'Gasto agregado';
         timeoutId = setTimeout(() => {
             isInfo.value = false;
             showChart.value = true;

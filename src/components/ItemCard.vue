@@ -23,7 +23,7 @@
             <div class="relative flex items-center w-full mb-6 justify-evenly">
                 <v-icon v-if="props.itemName !== 'Otros'" class="cursor-pointer" @click="handleAmount('remove')" name="md-remove-outlined" scale="1.5"
                     color="#075985" />
-                <input v-model="amount" type="number" class="w-16 p-1 text-center text-black border rounded-lg select-none border-slate-400 placeholder:select-none"
+                <input v-model="amount" type="number" class="w-16 p-1 text-center text-black border border-gray-300 rounded-lg select-none focus:outline-none focus:ring-2 focus:ring-sky-800 focus:border-sky-800 placeholder:select-none"
                     placeholder="0" min="0">
                 <v-icon v-if="props.itemName !== 'Otros'" class="cursor-pointer" @click="handleAmount('add')" name="md-addcircle-round" scale="1.5"
                     color="#075985" />

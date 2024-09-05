@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-48">
+    <div class="max-w-[48%]">
         <h2 class="p-2 text-xl font-semibold text-white rounded-lg bg-sky-800 font-poppins">Gran Total: ${{ UseUserStoreValues().getGrandTotal }} </h2>
     </div>
 </template>
