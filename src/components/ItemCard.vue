@@ -4,7 +4,7 @@
         <h2 class="pt-1 text-xl font-medium select-none font-poppins text-slate-600 sm:text-2xl">{{ props.itemName }}</h2>
         <img v-if="showImages" class="object-contain w-24 h-24 select-none animate-fade-up" :src="props.itemImg" alt=""> 
             <div class="flex flex-col items-center w-full gap-2 font-poppins">
-            <label class="text-2xl font-semibold select-none user-select-none text-sky-800" for="">${{
+            <label v-if="props.itemName !== 'Otros' " class="text-2xl font-semibold select-none user-select-none text-sky-800" for="">${{
                 props.itemPrice }}</label>
                 <div @click="toggleShowDesciption" v-if="props.itemDescription.length>=1" class="flex items-center justify-center w-full gap-1 cursor-pointer">
                     <p v-if="!showDescription" class="font-medium select-none text-md user-select-none">Ver más</p>
@@ -17,20 +17,15 @@
                         <v-icon name="bi-dot" scale="1.5" color="#075985" />
                         <p  class="font-medium text-sky-800">{{ descrip }}</p>
                     </div>
-                    <!-- <ul class="list-inside" >
-                        <li v-for="(descrip) in props.itemDescription" :key="descrip" class="flex items-center gap-2 font-medium text-sky-800">
-                            {{ descrip }}
-                        </li>
-                    </ul> -->
                 </div>
             <label class="font-medium select-none text-md user-select-none"
-                for="">Cantidad</label>
+                for="">{{ props.itemName === 'Otros' ? 'Monto' : 'Cantidad' }}</label>
             <div class="relative flex items-center w-full mb-6 justify-evenly">
-                <v-icon class="cursor-pointer" @click="handleAmount('remove')" name="md-remove-outlined" scale="1.5"
+                <v-icon v-if="props.itemName !== 'Otros'" class="cursor-pointer" @click="handleAmount('remove')" name="md-remove-outlined" scale="1.5"
                     color="#075985" />
                 <input v-model="amount" type="number" class="w-16 p-1 text-center text-black border rounded-lg select-none border-slate-400 placeholder:select-none"
                     placeholder="0" min="0">
-                <v-icon class="cursor-pointer" @click="handleAmount('add')" name="md-addcircle-round" scale="1.5"
+                <v-icon v-if="props.itemName !== 'Otros'" class="cursor-pointer" @click="handleAmount('add')" name="md-addcircle-round" scale="1.5"
                     color="#075985" />
             </div>
             </div>

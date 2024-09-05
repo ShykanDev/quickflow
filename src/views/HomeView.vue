@@ -41,9 +41,12 @@
           <!-- Summary of selected items -->
           <Transition>
             <ul v-if="summaryValues.length > 0" class="pt-[30%] overflow-auto">
-              <li v-for="(item, index) in summaryValues.filter( item => item.itemName)" :key="index"
+              <li v-for="(item, index) in summaryValues.filter( item => item.itemName !== 'Otros' && item.itemName )" :key="index"
                 class="px-2 mb-1 text-lg font-medium bg-white rounded-md shadow-md font-poppins text-sky-800">
                 {{ item.itemAmount }} {{ item.itemName }} ${{ item.itemSubtotal }}
+              </li>
+              <li class="px-2 mb-1 text-lg font-medium bg-white rounded-md shadow-md font-poppins text-sky-800" v-for="(item, index) in summaryValues.filter( item => item.itemName === 'Otros' )" :key="index">
+               {{ item.itemName }} ${{ item.itemSubtotal }}
               </li>
               <!-- Display total price -->
               <li class="px-2 mb-1 text-lg font-medium text-white rounded-md shadow-md bg-sky-800 font-poppins">
@@ -52,16 +55,17 @@
               <!-- Message when there are no items selected -->
             </ul>
           </Transition>
-          <SaveToSales  @click="pushSummaryToSales" class="cursor-pointer" />
-          <p v-if="isError" class="text-sm font-semibold text-red-700 font-poppins">{{ errorMessage }}</p>
+          <!-- <SaveToSales  @click="pushSummaryToSales" class="cursor-pointer" /> -->
+          <!-- <p v-if="isError" class="text-sm font-semibold text-red-700 font-poppins">{{ errorMessage }}</p> -->
         </section>
 
         <!-- Grand total button that appears when the sidebar is closed -->
-        <Transition>
+        <!-- <Transition> -->
           <!-- <div class="fixed left-0 right-0 z-50 flex justify-between px-2 bg-red-700 bottom-3"> -->
             <GrandTotal v-if="!isSideBarOpened" class="fixed bottom-3 left-3" />
+            <SaveToSales @click="addSummaryToSales" class="fixed cursor-pointer bottom-3 right-3" />
           <!-- </div> -->
-        </Transition>
+        <!-- </Transition> -->
       </template>
     </MainLayout>
   </div>
@@ -139,6 +143,11 @@ const pushSummaryToSales = () => {
       valuesToPush1.value = [];
       router.push({name:'sales'})
       UseSalesStore().pushNewEarn({itemSutotal:grandTotal.value})
+      saveValues.value = false;
+      UseUserStoreValues().resetSummary();
+      summaryValues.value = UseUserStoreValues().getSummary;
+      grandTotal.value = UseUserStoreValues().getGrandTotal;
+      valuesToPush1.value = [];
     } else  {
       isError.value = true;
       errorMessage.value = 'Agrega primero algun producto!';
@@ -153,6 +162,33 @@ const pushSummaryToSales = () => {
       console.log('Error while adding to History' + error);
       
     }
+}
+
+// function to add summary values to sales store
+const addSummaryToSales = () => {
+  try {
+    saveValues.value = true;
+    saveValues.value = true;
+    saveValues.value = true;
+    const dateFormated = moment().format('DD/MM/YY HH:mm:ss');
+    summaryValues.value = UseUserStoreValues().getSummary;
+    grandTotal.value = UseUserStoreValues().getGrandTotal;
+    console.log(summaryValues.value);
+    summaryValues.value.push({ grandTotal: grandTotal.value, itemDate: dateFormated });
+    valuesToPush1.value = summaryValues.value;
+    console.log('Values to push:', valuesToPush1.value);
+
+    pushSummaryToSales();
+
+    // saveValues.value = false;
+    //   UseUserStoreValues().resetSummary();
+    //   summaryValues.value = UseUserStoreValues().getSummary;
+    //   grandTotal.value = UseUserStoreValues().getGrandTotal;
+    //   valuesToPush1.value = [];
+  } catch (error) {
+    console.log('Error while adding to History' + error);
+
+  }
 }
 
 // function to push values from summary to sales store history
