@@ -49,9 +49,6 @@
                                         <p class="font-medium text-sky-900">Fecha de guardado: </p>
                                         <p class="font-bold text-sky-900">{{ arr[0][0].itemDate.substring(0, 9) }}</p>
                                     </div>
-                                    <p v-if="salesBackups.indexOf(arr)===0">This message must obly be accessible to the
-                                        user if this card is the first one</p>
-
                                     <div class="flex flex-col items-center gap-1">
                                         <p class="p-1 font-bold text-white rounded-md bg-sky-700">Ingresos Netos: ${{
                                             totalFinancialHistory[salesBackups.indexOf(arr)].totalSale}}</p>
