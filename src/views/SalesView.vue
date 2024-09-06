@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                <div class="flex justify-center w-dvw ">
+                <div class="flex items-center justify-center w-[98%]">
                     <section v-if="showDetailedInfo" class="box-border w-full py-2 bg-white shadow-md rounded-2xl animate-fade-up ">
                         <div class="flex flex-wrap items-center justify-center w-full gap-1">
                             <div class="flex items-center gap-2 px-1 ml-1 text-lg text-white bg-red-800 rounded-2xl justify-left font-poppins">

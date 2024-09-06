@@ -22,7 +22,12 @@ import { defineProps } from "vue";
     })
 
 const chartData = ref();
-const chartOptions = ref();
+const chartOptions = ref(
+    {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+);
 
 const bgColor = ref();
 const bgHover = ref();

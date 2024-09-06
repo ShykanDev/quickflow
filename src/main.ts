@@ -10,9 +10,9 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle,HiColorSwatch,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp, MdPointofsale,BiImageFill, GiPig,MdNoteadd,MdAddbox,RiCheckboxIndeterminateFill,GiReceiveMoney, GiPayMoney,GiMoneyStack,MdExpandcircledownRound, BiDot     } from "oh-vue-icons/icons";
+import { FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,FaChartPie,BiArrowRightCircle,HiColorSwatch,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp, MdPointofsale,BiImageFill, GiPig,MdNoteadd,MdAddbox,RiCheckboxIndeterminateFill,GiReceiveMoney, GiPayMoney,GiMoneyStack,MdExpandcircledownRound, BiDot     } from "oh-vue-icons/icons";
 
-addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,BiArrowRightCircle,HiColorSwatch,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp, MdPointofsale,BiImageFill, GiPig,MdNoteadd,MdAddbox,RiCheckboxIndeterminateFill,GiReceiveMoney, GiPayMoney,GiMoneyStack,MdExpandcircledownRound, BiDot    );
+addIcons(FaFlag, RiZhihuFill, IoAddOutline, MdRemoveOutlined,MdAddcircleRound,FaChartPie,BiArrowRightCircle,HiColorSwatch,FaArrowLeft,RiCloseCircleLine,MdMenuRound,HiSolidHome,MdSettingsapplicationsSharp,FaHistory, FaCashRegister, IoEyeOffSharp, IoEyeSharp, MdPointofsale,BiImageFill, GiPig,MdNoteadd,MdAddbox,RiCheckboxIndeterminateFill,GiReceiveMoney, GiPayMoney,GiMoneyStack,MdExpandcircledownRound, BiDot    );
 
 
 const app = createApp(App)
